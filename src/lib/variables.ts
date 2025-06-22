@@ -4,7 +4,7 @@ export const GLOBAL = {
   // Site metadata
   username: "Manuel Valdez",
   rootUrl: "https://saurinn.github.com",
-  shortDescription: ">Web application security blog +<br>>Bug bounty hunting stuff",
+  shortDescription: ">Web application security blog <br>>Bug bounty hunting stuff",
   longDescription: "Zaggonaut is a retro-inspired theme for Astro, built using TypeScript, TailwindCSS, and Astro.",
   
   // Social media links
