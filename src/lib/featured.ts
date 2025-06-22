@@ -1,4 +1,4 @@
-import type { ArticleFrontmatter, ProjectFrontmatter } from "./types";
+import type { ArticleFrontmatter } from "./types";
 import { getShortDescription, processContentInDir } from "./utils";
 
 
