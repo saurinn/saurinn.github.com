@@ -2,7 +2,7 @@
 
 export const GLOBAL = {
   // Site metadata
-  username: "./saurinn",
+  username: "~/saurinn",
   rootUrl: "https://saurinn.github.com",
   shortDescription: ">Web application security blog <br>>Bug bounty hunting stuff",
   longDescription: "Zaggonaut is a retro-inspired theme for Astro, built using TypeScript, TailwindCSS, and Astro.",
