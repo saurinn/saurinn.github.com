@@ -41,7 +41,6 @@ const sourceUrl = generateSourceUrl(frontmatter.filename, "blog");
         class="text-3xl sm:text-4xl leading-normal sm:leading-normal font-display" set:html={frontmatter.title}
         
       >
-        
       </h1>
       <div class="flex justify-between">
         <span>{articleDate}</span>
@@ -51,6 +50,6 @@ const sourceUrl = generateSourceUrl(frontmatter.filename, "blog");
     <Prose>
       <slot />
     </Prose>
-    <p class="pt-8">~{GLOBAL.username}</p>
+    <p class="pt-8">{GLOBAL.username}</p>
   </Section>
 </Layout>
