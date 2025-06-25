@@ -3,5 +3,5 @@ const { class: className } = Astro.props;
 ---
 
 <section class:list={["p-4 max-w-2xl mx-auto", className]}>
-  <slot />
+  <slot set:html={true}/>
 </section>
