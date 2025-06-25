@@ -40,7 +40,7 @@ const sourceUrl = generateSourceUrl(frontmatter.filename, "blog");
       <h1
         class="text-3xl sm:text-4xl leading-normal sm:leading-normal font-display" 
       >
-        {frontmatter.title}
+        set:html={frontmatter.title}
       </h1>
       <div class="flex justify-between">
         <span>{articleDate}</span>
