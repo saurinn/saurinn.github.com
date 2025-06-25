@@ -14,10 +14,10 @@ import { GLOBAL } from "../../lib/variables";
     >
       {GLOBAL.username}
     </h1>
-    <h2
+    <h2 set:html={GLOBAL.shortDescription}
       class="text-center text-xl sm:text-2xl font-mono font-medium sm:text-left"
     >
-      <p {GLOBAL.shortDescription}/>
+      
     </h2>
   </div>
 </div>
