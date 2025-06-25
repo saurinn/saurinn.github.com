@@ -21,7 +21,7 @@ const sourceUrl = generateSourceUrl(frontmatter.filename, "blog");
 
 <Layout>
   <Fragment slot="head">
-    <title>set:html={frontmatter.title} • {GLOBAL.username}</title>
+    <title>{frontmatter.title} • {GLOBAL.username}</title>
     <meta name="description" content={frontmatter.description} />
     <meta property="og:title" content={`${frontmatter.title} • ${GLOBAL.username}`} />
     <meta property="og:description" content={shortDescription} />
