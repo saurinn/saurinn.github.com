@@ -18,7 +18,7 @@ const { url, external, class: className } = Astro.props;
   target={external ? "_blank" : "_self"}
   aria-label={Astro.props["aria-label"]}
 >
-  <slot />
+  <slot set:html={true} />
   {
     external ? (
       <svg

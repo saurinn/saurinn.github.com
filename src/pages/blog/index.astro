@@ -34,14 +34,14 @@ import { articles } from "../../lib/list";
   </Fragment>
   <Section class="my-8">
     <div class="flex items-center gap-4 pt-8 pb-16">
-      <h1 class="font-display text-3xl sm:text-4xl leading-loose">set:html={GLOBAL.articlesName}</h1>
+      <h1 class="font-display text-3xl sm:text-4xl leading-loose">{GLOBAL.articlesName}</h1>
     </div>
         <ul>
       {
         articles.map((articles) => (
           <li>
             <ArticleSnippet
-              title={articles.title}
+              title=set:html={articles.title}
               description={articles.description}
               duration={`${articles.time} min`}
               url={articles.filename}
