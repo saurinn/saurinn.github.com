@@ -41,7 +41,7 @@ import { articles } from "../../lib/list";
         articles.map((articles) => (
           <li>
             <ArticleSnippet
-              title=set:html={articles.title}
+              title={articles.title}
               description={articles.description}
               duration={`${articles.time} min`}
               url={articles.filename}
