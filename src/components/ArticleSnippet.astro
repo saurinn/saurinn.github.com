@@ -15,7 +15,7 @@ const { title, description, url, duration, timestamp } = Astro.props;
 
 <div class="zag-text zag-transition flex flex-col gap-3 pb-8">
   <Anchor url={url} class="text-xl">
-    {title}
+    set:html={title}
   </Anchor>
   <p class="">
     {description}
