@@ -37,10 +37,10 @@ const sourceUrl = generateSourceUrl(frontmatter.filename, "blog");
   </Fragment>
   <Section class="pt-8">
     <div class="flex flex-col gap-4 mt-8 mb-16">
-      <h1 set:html={frontmatter.title}
-        class="text-3xl sm:text-4xl leading-normal sm:leading-normal font-display"
-        
+      <h1 
+        class="text-3xl sm:text-4xl leading-normal sm:leading-normal font-display" 
       >
+      {frontmatter.title}
       </h1>
       <div class="flex justify-between">
         <span>{articleDate}</span>
