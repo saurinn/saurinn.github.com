@@ -12,7 +12,7 @@ const { featuredArticles } = Astro.props;
 ---
 
 <div class="flex justify-between items-center w-full">
-  <h3 class="font-display text-lg sm:text-xl leading-loose">{GLOBAL.articlesName}</h3>
+  <h3 class="font-display text-lg sm:text-xl leading-loose">set:html={GLOBAL.articlesName}</h3>
   <Anchor url="/blog" class="text-base">{GLOBAL.viewAll}</Anchor>
 </div>
 <ul class="my-8">
