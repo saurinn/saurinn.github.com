@@ -16,5 +16,5 @@ This article explains how I found a Blind XXE via a version of iText which is vu
 
 <mark>The scope of this does not include the definition of XXEs, sorry about that, I'm trying to make this as straightforward as I can, you know, KISS...</mark>
 
-![KISS](/images/kiss.gif)
+![KISS](/kiss.gif)
 
