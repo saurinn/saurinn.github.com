@@ -14,7 +14,7 @@ Hey there! My name's Manuel Valdez, I go by the handle saurinn/saur1n, or whatev
 This article explains how I found a Blind XXE via a version of iText which is vulnerable to CVE-2017-9096. This package was been used by a Bug bounty program's stack to handle/extract text and metadata from PDF documents through a file upload feature.
 
 
-<mark>The scope of this does not include the definition of XXEs, sorry about that, I'm trying to make this as straightforward as I can, you know, KISS...</mark>
+>The scope of this does not include the definition of XXEs, sorry about that, I'm trying to make this as straightforward as I can, you know, KISS...
 
 <img src="/kiss.gif" alt="kiss gif" width="800" height="300" />
 
