@@ -28,11 +28,28 @@ There was an upload feature that allowed certain file types: png, jpg, xls, pdf,
 
 Like I said, images being converted to PDF files seemed pretty interesting to me, especially by taking a look at it and seeing the names of the two images inside the resulting file. 
 
-At this point HTMLi to SSRF came to my mind, it's not a surprise to anyone that follows me on twitter/X for a while that I love hunting for those but in this case it wasn't that easy <b>at first</b>. I tried a lot of tricks targeting the name of the files to get the Html injection but what I tried didn't work, I steped back a little bit and realized I hadn't checked the PDF metadata, classic mistake. 
+At this point HTMLi to SSRF came to my mind, it's not a surprise to anyone that follows me on twitter/X for a while that I love hunting for those but in this case it wasn't that easy <b>at first</b>. I tried a lot of tricks targeting the name of the files to get the HTML injection but what I tried didn't work, I steped back a little bit and realized I hadn't checked the PDF metadata, classic mistake. 
 
 By looking at the metadata some interesting strings caught me off a bit. Take a look:
 
 <img src="/itext.png" alt="pdf metadata" width="800" height="300" />
+
+Java, itext, some guy named paulo, a weird big ass domain... Alright, being serious we have a lot of interesting bits here:
+
+<b>pdftk-java 3.2.2</b>, an old Java port version of PDFtk, a toolkit for working with PDF files.
+
+<b>itext-paulo-155 (itextpdf.sf.net-lowagie.com)</b>, an iText library part of the PDFtk Java port. Bingo! By looking at the version it was a 20yo version!! 
+
+Btw, Paulo was the main dev from the project and the domain just a mistake by some dev of using the dash char to separate two domains (itextpdf.sf.net and lowagie.com) which we all know that's a no-no (someone actually registered <b>net-lowagie.com</b>, 🐟🎣...)
+
+
+
+
+
+
+
+
+
 
 
 
