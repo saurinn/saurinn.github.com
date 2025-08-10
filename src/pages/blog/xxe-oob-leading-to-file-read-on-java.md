@@ -40,7 +40,7 @@ Java, itext, some guy named paulo, a weird big ass domain... Alright, being seri
 
 <b>itext-paulo-155 (itextpdf.sf.net-lowagie.com)</b>, an iText library part of the PDFtk Java port. Bingo! By looking at the version it was a 20yo version!! 
 
-Btw, Paulo was the main dev from the project and the domain just a mistake by some dev of using the dash char to separate two domains (itextpdf.sf.net and lowagie.com) which we all know that's a no-no (someone actually registered <b>net-lowagie.com</b>, 🐟🎣...)
+Btw, Paulo was the main dev from the project and the domain just a mistake by some dev of using the dash char to separate two domains (itextpdf.sf.net and lowagie.com) which we all know that's a no-no (of course someone totally not malicious registered <b>net-lowagie.com</b>, 🐟🎣...)
 
 
 
