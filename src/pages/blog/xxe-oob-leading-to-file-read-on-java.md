@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogLayout.astro
-title: XXE Out-of-Band via a vulnerable file upload leading to a single line read
+title: XXE Out-of-Band via a vulnerable file upload leading to a boring single line read
 description: HTML is the foundation of all websites. This guide will walk you through creating your first simple website using HTML.
 tags: ["code", "html"]
 time: 4
