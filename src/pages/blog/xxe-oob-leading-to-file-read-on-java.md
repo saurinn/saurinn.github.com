@@ -20,10 +20,10 @@ This article explains how I found a Blind XXE via a version of iText which is vu
 
 ---
 
-My style of hacking it's a bit feature orientered, if I see something interesting or several moving parts working based on that particular fuction, I'm investing my time there. This time I was facing a web application that handles different documents like pictures, xls and PDF files, whenever I see some things going on with PDF files I'm definetly taking a look at it. 
+My style of hacking it's a bit feature orientered, if I see something interesting or several moving parts working based on that particular fuction, I'm investing my time there. This time I was facing a web application that handles different documents like pictures, xls and PDF files... Whenever I see some things going on with PDF files I'm definetly taking a look at it. 
 
-There was an upload feature that allowed certain file types: png, jpg, xls, pdf, zip and some others. Uploading images seemed totally fine, clicking on its the settings did not show anything interesting either. Then I selected two images and clicked the same settings button (hamburger icon), suddenly a new option showed up: "Merge files". This combined the two images and embeded them on a single PDF file.
+There was an upload feature that allowed certain file types: png, jpg, xls, pdf, zip and some others. Uploading images seemed totally fine, clicking on its settings did not show anything interesting either. Then I selected two images and clicked the same settings button (hamburger icon), suddenly a new option showed up: "Merge files". This combined the two images and embeded them on a single PDF file.
 
-Like I said, images converting to PDF files seem pretty interesting to me, especially by taking a look at them and seeing the names of the two images inside the resulting file. At this point HTMLi to SSRF came to my mind, it's not a surprise to anyone that follows me on twitter/X for a while that I love hunting for those but in this case it wasn't that easy <b>at first</b>
+Like I said, images being converted to PDF files seemed pretty interesting to me, especially by taking a look at it and seeing the names of the two images inside the resulting file. At this point HTMLi to SSRF came to my mind, it's not a surprise to anyone that follows me on twitter/X for a while that I love hunting for those but in this case it wasn't that easy <b>at first</b>. I tried a lot of tricks targeting the name of the file but nothing worked, I steped back a little bit and realized I hadn't checked the PDF metadata, classic mistake. 
 
 
