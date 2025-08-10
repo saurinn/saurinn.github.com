@@ -47,15 +47,6 @@ By looking for iText vulns the first google entry pointed me to High rated vulne
 
 >	The XML parsers in iText before 5.5.12 and 7.x before 7.0.3 do not disable external entities, which might allow remote attackers to conduct XML external entity (XXE) attacks via a crafted PDF.
 
-Crafted PDF... cool, this involves some kind of tweak to a PDF file. Some dorks here and there and ran out to a [Github repo](https://github.com/jakabakos/CVE-2017-9096-iText-XXE) with working steps to exploit this CVE.  
+Crafted PDF... cool, this involves some kind of tweak to a PDF file. Some dorks here and there and ran out to a [Github repo](https://github.com/jakabakos/CVE-2017-9096-iText-XXE) with working steps to exploit this CVE.
 
-
-
-
-
-
-
-
-
-
-
+Follow every step, embed an XXE code (`<!DOCTYPE foo [ <!ENTITY xxe2 SYSTEM "http://collab" > ]>`) on the suggested line, uploaded it to the app and waited for a ping back to my collaborator... Nada... It has to be vulnerable right? Embeding te payload on different sections of the PDF file but nothing seems to trigger the request. Changing the controlled host for some other just in case they had a blacklist on [well known OOB domains](https://x.com/saur1n/status/1888591256957210864) did not change anything, still nothing.
