@@ -9,12 +9,12 @@ timestamp: 2025-06-23T11:12:03+00:00
 filename: xxe-oob-leading-to-file-read-on-java
 ---
 
-Hey there! My name's Manuel Valdez, I go by the handle saurinn/saur1n, or whatever. This is my fisrt writeup so go easy on me.
+Hey there! My name's Manuel Valdez, I go by the handles saurinn/saur1n, or whatever. This is my fisrt writeup so go easy on me.
 
 This article explains how I found a Blind XXE via a version of iText which is vulnerable to CVE-2017-9096. This package was been used by a Bug bounty program's stack to handle/extract text and metadata from PDF documents through a file upload feature.
 
 
->The scope of this does not include the definition of XXEs, sorry about that, I'm trying to make this as straightforward as I can, you know, KISS...
+>The scope of this article does not include the definition of XXEs, sorry about that, I'm trying to make this as straightforward as I can, you know, KISS...
 
 <img src="/kiss.gif" alt="kiss gif" width="800" height="300" />
 
@@ -22,7 +22,9 @@ This article explains how I found a Blind XXE via a version of iText which is vu
 
 My style of hacking it's a bit feature orientered, if I see something interesting or several moving parts working based on that particular fuction, I'm investing my time there. This time I was facing a web application that handles different documents like pictures, xls and PDF files... Whenever I see some things going on with PDF files I'm definetly taking a look at it. 
 
-There was an upload feature that allowed certain file types: png, jpg, xls, pdf, zip and some others. Uploading images seemed totally fine, clicking on its settings did not show anything interesting either. Then I selected two images and clicked the same settings button (hamburger icon), suddenly a new option showed up: "Merge files". This combined the two images and embeded them on a single PDF file.
+There was an upload feature that allowed certain file types: png, jpg, xls, pdf, zip and some others. Uploading images seemed totally fine, clicking on its settings did not show anything interesting either. Then I selected two images and clicked the same settings button (hamburger icon), suddenly a new option showed up: "Merge files". This option combined the two images and embeded them into a single PDF file... Can you smell that right? 
+
+<img src="/fish.gif" alt="kiss gif" width="800" height="300" />
 
 Like I said, images being converted to PDF files seemed pretty interesting to me, especially by taking a look at it and seeing the names of the two images inside the resulting file. At this point HTMLi to SSRF came to my mind, it's not a surprise to anyone that follows me on twitter/X for a while that I love hunting for those but in this case it wasn't that easy <b>at first</b>. I tried a lot of tricks targeting the name of the files to get the Html injection but what I tried didn't work, I steped back a little bit and realized I hadn't checked the PDF metadata, classic mistake. 
 
