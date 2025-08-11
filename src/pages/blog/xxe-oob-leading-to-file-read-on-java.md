@@ -22,7 +22,7 @@ This article explains how I found a Blind XXE via a version of iText which is vu
 
 My style of hacking is a bit feature orientered, if I see something interesting or several moving parts working based on that particular fuction, I'm investing my time there. This time I was facing a web application that handles different documents like pictures, xls and PDF files... Whenever I see some things going on with PDF files I'm definetly taking a look at it. 
 
-There was an upload feature that allowed certain file types: png, jpg, xls, pdf, zip and some others. Uploading images seemed totally fine, clicking on its settings did not show anything interesting either. Then I selected two images and clicked the same settings button (hamburger icon), suddenly a new option showed up: "Merge files". This option combined the two images and embeded them into a single PDF file... Can you smell that right? 
+There was an upload feature that allowed certain file types: png, jpg, xls, pdf, zip and some others. Uploading images seemed totally fine, clicking on its settings did not show anything interesting either. Then I selected two images and clicked the same settings button (hamburger icon), suddenly a new option showed up: "Merge files". This option combined the two images and embedded them into a single PDF file... Can you smell that right? 
 
 <img src="/fish.gif" alt="kiss gif" width="800" height="300" />
 
@@ -49,9 +49,9 @@ Anyway, by looking for iText vulns the first google entry pointed me to a High r
 
 <b>Crafted PDF</b>... cool, this involves some kind of tweak to a PDF file. Some dorks here and there and ran out to a [Github repo](https://github.com/jakabakos/CVE-2017-9096-iText-XXE) with working steps to exploit this CVE.
 
-Followed every step, embeded an XXE code: 
+Followed every step, inserted an XXE code: 
 ```<!DOCTYPE foo [ <!ENTITY xxe2 SYSTEM "http://collab" > ]>``` 
-to initally test for an SSRF on the suggested lines, uploaded it to the app and waited for a ping back to my collaborator... Nada... It has to be vulnerable right? Embeding the payload on different sections of the PDF file did nothing different. Changing the controlled host for some other just in case they had a blacklist on [well known OOB domains](https://x.com/saur1n/status/1888591256957210864) but still nothing.
+to initally test for an SSRF on the suggested lines, uploaded it to the app and waited for a ping back to my collaborator... Nada... It has to be vulnerable right? Embedding the payload on different sections of the PDF file did nothing different. Changing the controlled host for some other just in case they had a blacklist on [well known OOB domains](https://x.com/saur1n/status/1888591256957210864) but still nothing.
 
 By looking the sample PDF file used for the exploit with nano (I use nano btw) I had to find some other place to insert the code, searching for the string `<?xml` gave me some matches but on line 741 I saw this:
 
