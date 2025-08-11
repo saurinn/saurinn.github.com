@@ -59,5 +59,5 @@ Alright, let's place it on line 742 then... Uploaded it... and wait for it... wa
 
 <img src="/x.png" alt="pdf metadata" width="800" height="300" />
 
-So yeah, it was in fact a vulnerable iText version to XXE. Now, it was time to escalate it.
+So yeah, it was in fact a vulnerable iText version to XXE, BUT that version of Java made me tweak a little, it was pretty updated one. Well, as always it was time to escalate it.
 
