@@ -20,7 +20,7 @@ This article explains how I found a Blind XXE via a version of iText which is vu
 
 ---
 
-My style of hacking it's a bit feature orientered, if I see something interesting or several moving parts working based on that particular fuction, I'm investing my time there. This time I was facing a web application that handles different documents like pictures, xls and PDF files... Whenever I see some things going on with PDF files I'm definetly taking a look at it. 
+My style of hacking is a bit feature orientered, if I see something interesting or several moving parts working based on that particular fuction, I'm investing my time there. This time I was facing a web application that handles different documents like pictures, xls and PDF files... Whenever I see some things going on with PDF files I'm definetly taking a look at it. 
 
 There was an upload feature that allowed certain file types: png, jpg, xls, pdf, zip and some others. Uploading images seemed totally fine, clicking on its settings did not show anything interesting either. Then I selected two images and clicked the same settings button (hamburger icon), suddenly a new option showed up: "Merge files". This option combined the two images and embeded them into a single PDF file... Can you smell that right? 
 
@@ -55,3 +55,4 @@ By looking the crafted PDF file with nano I had to find some other place to inse
 
 <img src="/nano.png" alt="pdf metadata" width="800" height="300" />
 
+Alright, let's place it on 742 then... Upload it
