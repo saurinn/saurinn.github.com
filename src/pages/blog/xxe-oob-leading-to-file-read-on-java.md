@@ -55,5 +55,9 @@ By looking the sample PDF file used for the exploit with nano (I use nano btw) I
 
 <img src="/nano.png" alt="pdf metadata" width="800" height="300" />
 
-Alright, let's place it on line 742 then... Uploaded it... wait for it... wait for it... BOOM! DNS and HTTP interactions, so yeah its a vulnerable iText version to XXE. Now, it was time to escalate it.
+Alright, let's place it on line 742 then... Uploaded it... wait for it... wait for it... BOOM! DNS and HTTP interactions.
+
+<img src="/x.png" alt="pdf metadata" width="800" height="300" />
+
+So yeah, it was in fact a vulnerable iText version to XXE. Now, it was time to escalate it.
 
