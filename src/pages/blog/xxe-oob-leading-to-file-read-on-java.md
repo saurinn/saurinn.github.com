@@ -55,7 +55,7 @@ By looking the sample PDF file used for the exploit with nano (I use nano btw) I
 
 <img src="/nano.png" alt="pdf metadata" width="800" height="300" />
 
-Alright, let's place it on line 742 then... Uploaded it... wait for it... wait for it... BOOM! DNS and HTTP interactions.
+Alright, let's place it on line 742 then... Uploaded it... and wait for it... wait for it... BOOM! DNS and HTTP interactions.
 
 <img src="/x.png" alt="pdf metadata" width="800" height="300" />
 
