@@ -34,7 +34,7 @@ By looking at the metadata some interesting strings caught me off a bit. Take a 
 
 <img src="/itext.png" alt="pdf metadata" width="800" height="300" />
 
-Java, itext, some guy named paulo, a weird big ass domain... Alright, being serious we have a lot of interesting bits here:
+Java, itext, some guy named paulo and some weird looking domain... Alright, being serious we have a lot of interesting bits here:
 
 <b>pdftk-java 3.2.2</b>, an old Java port version of PDFtk, a toolkit for working with PDF files.
 
