@@ -43,7 +43,7 @@ Java, itext, some guy named paulo and some weird looking domain... Alright, bein
 Btw, Paulo was the main dev from the project and the domain just a mistake by some dev of using the dash char to separate two domains (itextpdf.sf.net and lowagie.com) which we all know that's a no-no (of course someone totally not malicious registered <b>net-lowagie.com</b>, 🐟🎣...)
 
 
-By looking for iText vulns the first google entry pointed me to a High rated vulnerability, XXE, with an CVE assigned to it <b>CVE-2017-9096</b>.
+Anyway, by looking for iText vulns the first google entry pointed me to a High rated vulnerability, XXE, with an CVE assigned to it <b>CVE-2017-9096</b>.
 
 >	The XML parsers in iText before 5.5.12 and 7.x before 7.0.3 do not disable external entities, which might allow remote attackers to conduct XML external entity (XXE) attacks via a crafted PDF.
 
