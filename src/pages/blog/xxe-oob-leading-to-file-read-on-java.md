@@ -9,9 +9,9 @@ timestamp: 2025-06-23T11:12:03+00:00
 filename: xxe-oob-leading-to-file-read-on-java
 ---
 
-Hey there! My name's Manuel Valdez, I go by the handles saurinn/saur1n, or whatever. This is my fisrt writeup so go easy on me.
+Hey there! My name's Manuel Valdez, I go by the handles saurinn/saur1n, across different bug bounty platforms but I spend my free time hacking on intigriti. This is my first writeup so go easy on me.
 
-This article explains how I found a Blind XXE via a version of iText which is vulnerable to CVE-2017-9096. This package was been used by a Bug bounty program's stack to handle/extract text and metadata from PDF documents through a file upload feature.
+This article explains how I found a Blind XXE via a version of iText which is vulnerable to CVE-2017-9096. This package had been used by a Bug bounty program's stack to handle/extract text and metadata from PDF documents through a file upload feature.
 
 
 >The scope of this article does not include the definition of XXEs, sorry about that, I'm trying to make this as straightforward as I can, you know, KISS...
@@ -20,7 +20,7 @@ This article explains how I found a Blind XXE via a version of iText which is vu
 
 ---
 
-My style of hacking is a bit feature orientered, if I see something interesting or several moving parts working based on that particular fuction, I'm investing my time there. This time I was facing a web application that handles different documents like pictures, xls and PDF files... Whenever I see some things going on with PDF files I'm definetly taking a look at it. 
+My style of hacking is a bit feature-oriented, if I see something interesting or several moving parts working based on that particular function, I'm investing my time there. This time I was facing a web application that handles different documents like pictures, .xls and PDF files... Whenever I see some things going on with PDF files I'm definitely taking a look at it. 
 
 There was an upload feature that allowed certain file types: png, jpg, xls, pdf, zip and some others. Uploading images seemed totally fine, clicking on its settings did not show anything interesting either. Then I selected two images and clicked the same settings button (hamburger icon), suddenly a new option showed up: "Merge files". This option combined the two images and embedded them into a single PDF file... Can you smell that right? 
 
@@ -28,13 +28,13 @@ There was an upload feature that allowed certain file types: png, jpg, xls, pdf,
 
 Like I said, images being converted to PDF files seemed pretty interesting to me, especially by taking a look at it and seeing the names of the two images inside the resulting file. 
 
-At this point HTMLi to SSRF came to my mind, it's not a surprise to anyone that follows me on twitter/X for a while that I love hunting for those but in this case it wasn't that easy <b>at first</b>. I tried a lot of tricks targeting the name of the files to get the HTML injection but what I tried didn't work, I steped back a little bit and realized I hadn't checked the PDF metadata, classic mistake. 
+At this point HTMLi to SSRF came to my mind, it's not a surprise to anyone that follows me on Twitter/X for a while that I love hunting for those but in this case it wasn't that easy <b>at first</b>. I tried a lot of tricks targeting the name of the files to get the HTML injection but what I tried didn't work, I stepped back a little bit and realized I hadn't checked the PDF metadata, classic mistake. 
 
 By looking at the metadata some interesting strings caught me off a bit. Take a look:
 
 <img src="/itext.png" alt="pdf metadata" width="800" height="300" />
 
-Java, itext, some guy named paulo and some weird looking domain... Alright, being serious we have a lot of interesting bits here:
+Java, iText, some guy named Paulo and some weird looking domain... Alright, being serious we have a lot of interesting bits here:
 
 <b>pdftk-java 3.2.2</b>, an old Java port version of PDFtk, a toolkit for working with PDF files.
 
@@ -47,7 +47,7 @@ Anyway, by looking for iText vulns the first google entry pointed me to a High r
 
 >	The XML parsers in iText before 5.5.12 and 7.x before 7.0.3 do not disable external entities, which might allow remote attackers to conduct XML external entity (XXE) attacks via a crafted PDF.
 
-<b>Crafted PDF</b>... cool, this involves some kind of tweak to a PDF file. Some dorks here and there and ran out to a [Github repo](https://github.com/jakabakos/CVE-2017-9096-iText-XXE) with working steps to exploit this CVE.
+<b>Crafted PDF</b>... cool, this involves some kind of tweak to a PDF file. Some dorks here and there I ran into a [Github repo](https://github.com/jakabakos/CVE-2017-9096-iText-XXE) with working steps to exploit this CVE.
 
 Followed every step, inserted an XXE code: 
 
@@ -57,7 +57,7 @@ Followed every step, inserted an XXE code:
 
 to initally test for an SSRF on the suggested lines, uploaded it to the app and waited for a ping back to my collaborator... Nada... It has to be vulnerable right? Embedding the payload on different sections of the PDF file did nothing different. Changing the controlled host for some other just in case they had a blacklist on [well known OOB domains](https://x.com/saur1n/status/1888591256957210864) but still nothing.
 
-By looking the sample PDF file used for the exploit with nano (I use nano btw) I had to find some other place to insert the code, searching for the string `<?xml` gave me some matches but on line 741 I saw this:
+By looking at the sample PDF file used for this exploit with nano (I use nano btw) I had to find some other place to insert the code, searching for the string `<?xml` gave me some matches but on line 741 I saw this:
 
 <img src="/nano.png" alt="pdf metadata" width="800" height="300" />
 
