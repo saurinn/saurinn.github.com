@@ -6,7 +6,7 @@ tags: ["code", "html"]
 time: 4
 featured: true
 timestamp: 2025-06-23T11:12:03+00:00
-filename: xxe-oob-via-a-pdf-upload-on-java
+filename: xxe-oob-via-a-pdf-upload
 ---
 
 Hey there! My name's Manuel Valdez, I go by the handles saurinn/saur1n, across different bug bounty platforms but I spend my free time hacking on intigriti. This is my first writeup so go easy on me.
@@ -61,9 +61,13 @@ By looking at the sample PDF file used for this exploit with nano (I use nano bt
 
 <img src="/nano.png" alt="pdf metadata" width="800" height="300" />
 
-Alright, let's place it on line 742 then... Uploaded it... and wait for it... wait for it... BOOM! DNS and HTTP interactions.
+Alright, let's place it on line 742 then... Uploaded it... and ... wait for it... wait for it... 
 
 <img src="/x.png" alt="pdf metadata" width="800" height="300" />
 
-So yeah, it was in fact a vulnerable iText version to XXE, BUT that version of Java made me tweak a little, it was a pretty updated one. Well, as always it was time to escalate the bug.
+¡VAMOS! DNS and HTTP interactions.
+
+So yeah, it was in fact a vulnerable iText version to XXE, BUT, that version of Java made me tweak a little, it was a pretty updated one. Well, as always it was time to escalate the bug.
+
+
 
