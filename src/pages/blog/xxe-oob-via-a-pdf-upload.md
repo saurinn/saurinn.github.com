@@ -106,7 +106,7 @@ Back in the initial payload:
 
 5. %ent;: This line (3rd) triggers the processing of the %ent entity from the remote DTD, in simple terms, this action brings the final, exfil command (`&data;`) into play, setting up the last step of the attack.
 
-6. `<root>&data;</root`>: The parser now resolves the `&data;` general entity. This triggers a final HTTP request to `https://attacker-server`. The content of the `/etc/passwd` file is appended as a URL parameter (`?x=%file;`), and the server sends this request, successfully exfiltrating the data to the attacker's controlled domain.
+6. `<root>&data;</root>`: The parser now resolves the `&data;` general entity. This triggers a final HTTP request to `https://attacker-server`. The content of the `/etc/passwd` file is appended as a URL parameter (`?x=%file;`), and the server sends this request, successfully exfiltrating the data to the attacker's controlled domain.
 
 
 
