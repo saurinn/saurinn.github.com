@@ -9,9 +9,9 @@ timestamp: 2025-06-23T11:12:03+00:00
 filename: xxe-oob-via-a-pdf-upload
 ---
 
-Hey there! My name's Manuel Valdez, I go by the handles saurinn/saur1n, across different bug bounty platforms but I spend my free time hacking on intigriti. This is my first writeup so go easy on me.
+Hey there! My name's Manuel Valdez, I go by the handles saurinn/saur1n across different bug bounty platforms but I spend my free time hacking on intigriti, mostly. This is my first writeup so go easy on me.
 
-This article explains how I found a Blind XXE via a version of iText which is vulnerable to CVE-2017-9096. This package had been used by a Bug bounty program's stack to handle/extract text and metadata from PDF documents through a file upload feature.
+This article explains how I found a Blind XXE via a version of iText which was vulnerable to CVE-2017-9096. This package had been used by a Bug bounty program's stack to handle/extract text and metadata from PDF documents through a file upload feature.
 
 
 >The scope of this article does not include the definition of XXEs, sorry about that, I'm trying to make this as straightforward as I can, you know, KISS...
@@ -20,7 +20,7 @@ This article explains how I found a Blind XXE via a version of iText which is vu
 
 ---
 
-My style of hacking is a bit feature-oriented, if I see something interesting or several moving parts working based on that particular function, I'm investing my time there. This time I was facing a web application that handles different documents like pictures, .xls and PDF files... Whenever I see some things going on with PDF files I'm definitely taking a look at it. 
+My style of hacking is a bit feature-oriented, if I see something interesting or several moving parts working based on a particular functionality, I'm investing my time there. This time I was facing a web application that handles different documents like pictures, .xls and PDF files... Whenever I see some things going on with PDF files I'm definitely taking a look at it. 
 
 There was an upload feature that allowed certain file types: png, jpg, xls, pdf, zip and some others. Uploading images seemed totally fine, clicking on its settings did not show anything interesting either. Then I selected two images and clicked the same settings button (hamburger icon), suddenly a new option showed up: "Merge files". This option combined the two images and embedded them into a single PDF file... Can you smell that right? 
 
