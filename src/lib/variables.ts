@@ -22,9 +22,9 @@ export const GLOBAL = {
   //noProjects: "No featured projects yet.",
 
   // Blog metadata
-  blogTitle: "My Thoughts & Takes",
-  blogShortDescription: "Practical wisdom, unfiltered thoughts, and hot takes.",
-  blogLongDescription: "Web development, tech trends, and the occasional programming mishap.",
+  blogTitle: "manuel valdez | saurinn",
+  blogShortDescription: ">Web application security blog <br>>Bug bounty hunting stuff",
+  blogLongDescription: ">Web application security blog <br>>Bug bounty hunting stuff",
 
   // Project metadata
   //projectTitle: "Projects and Code",
