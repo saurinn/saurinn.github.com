@@ -108,7 +108,7 @@ The `poc.dtd` file, hosted on the attacker's server, contains the actual exfiltr
 ```xml
 <!ENTITY % file SYSTEM "file:///etc/passwd">
 ```
-The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the <code>`/etc/hostname`</code> file from the victim server's filesystem.
+The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the <code>/etc/hostname</code> file from the victim server's filesystem.
 
 
 
