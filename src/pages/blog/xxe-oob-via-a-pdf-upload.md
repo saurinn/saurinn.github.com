@@ -124,7 +124,7 @@ FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU!!
 <img src="/ohMOD.gif" alt="pdf metadata" width="800" height="300" />
 
 
-And just like that I was successfully exfiltrated and internal filesystem from the AWS instance. Great, let's try something more sensitive `/etc/passwd`:
+And just like that I successfully exfiltrated an internal filesystem from the AWS instance. Great, let's try something more sensitive `/etc/passwd`:
 
 NADA... I tried with different files but still nothing was return to my collaborator instance... OK, until this point I'd read a ton of writeups about XXE on Java applications and I knew I was facing the line termination (multiline files) restriction, so only single line files could be read out.
 
