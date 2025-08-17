@@ -34,13 +34,13 @@ By looking at the metadata some interesting strings caught me off a bit. Take a 
 
 <img src="/itext.png" alt="pdf metadata" width="800" height="300" />
 
-Java, iText, some guy named Paulo and some weird looking domain... Alright, being serious we have a lot of interesting bits here:
+Java, iText, some guy named Paulo and some weird looking domain... Alright, being serious we have some interesting bits here:
 
-<b>pdftk-java 3.2.2</b>, an old Java port version of PDFtk, a toolkit for working with PDF files.
+- <b>pdftk-java 3.2.2</b>, an old Java port version of PDFtk, a toolkit for working with PDF files.
 
-<b>itext-paulo-155 (itextpdf.sf.net-lowagie.com)</b>, an iText library part of the PDFtk Java port. Bingo! By looking at the version it was a 20yo version!! 
+- <b>itext-paulo-155 (itextpdf.sf.net-lowagie.com)</b>, an iText library part of the PDFtk Java port. Bingo! By looking at the version it was a 20yo version!! 
 
-Btw, Paulo was the main dev from the project and the domain just a mistake by some dev of using the dash char to separate two domains (itextpdf.sf.net and lowagie.com) which we all know that's a no-no (of course someone totally not malicious registered <b>net-lowagie.com</b>, 🐟🎣...)
+>Btw, Paulo was the main dev from the project and the domain just a mistake by some dev of using the dash char to separate two domains (itextpdf.sf.net and lowagie.com) which we all know that's a no-no (of course someone totally not malicious registered <b>net-lowagie.com</b>, 🐟🎣...)
 
 
 Anyway, by looking for iText vulns the first google entry pointed me to a High rated vulnerability, XXE, with an CVE assigned to it <b>CVE-2017-9096</b>.
