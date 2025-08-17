@@ -67,7 +67,7 @@ Alright, let's place it on line 742 then... Uploaded it... and ... wait for it..
 
 ¡VAMOS! DNS and HTTP interactions.
 
-So yeah, it was in fact a vulnerable iText version to XXE, BUT, that version of Java set me off a little... it was a pretty updated one, to be honest I didn't want to think it through and move on, trying to stay positive. Well, as always it was time to escalate the bug.
+So yeah, it was in fact a vulnerable iText version to XXE, BUT, that version of Java set me off a little... it was a pretty updated one, and to be honest I didn't want to think it through, trying to stay positive. Well, as always it was time to escalate the bug.
 
 Due to the nature of the feature, no direct feedback was available after every upload, therefore an error based XXE was not possible, so I had to go with the Blind route using Out-of-Band attacks to try to exfiltrate internal information.
 
