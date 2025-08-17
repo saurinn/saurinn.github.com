@@ -122,3 +122,12 @@ Alright, with the process steps out of the way, the 1st. payload was inserted on
 <img src="/xx.png" alt="pdf metadata" width="800" height="300" />
 FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU!!
 <img src="/ohMOD.gif" alt="pdf metadata" width="800" height="300" />
+
+
+And just like that I was successfully exfiltrated and internal filesystem from the AWS instance. Great, let's try something more sensitive `/etc/passwd`:
+
+NADA... I tried with different files but still nothing was return to my collaborator instance... OK, until this point I'd read a ton of writeups about XXE on Java applications and I knew I was facing the line termination (multiline files) restriction, so only single line files could be read out.
+
+Time to pull out the FTP trick to exfil mutiline files (thanks to Novikov). I found a [script](https://github.com/lc/230-OOB/blob/master/230.py) created by (Corben Leo)[https://x.com/hacker_] that emulates an FTP server for OOB attacks.
+
+After having a lot of issues setting up the server on my VPS, I finally was able to do it and repeated all the exploitation steps, which lead me to... nada land, again. 
