@@ -130,4 +130,4 @@ NADA... I tried with different files but still nothing was return to my collabor
 
 Time to pull out the FTP trick to exfil mutiline files (thanks to Novikov). I found a [script](https://github.com/lc/230-OOB/blob/master/230.py) created by [Corben Leo](https://x.com/hacker_) that emulates an FTP server for OOB attacks.
 
-After having a lot of issues setting up the server on my VPS, I finally was able to do it and repeated all the exploitation steps, which lead me to... nada land, again. 
+After having a lot of issues setting up the server on my VPS (skill issue), I finally was able to do it. Then, I repeated all the exploitation steps, which lead me to... nada land, again... 
