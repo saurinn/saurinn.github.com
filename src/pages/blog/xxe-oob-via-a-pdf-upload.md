@@ -124,7 +124,7 @@ Alright, now with the theory out of the way, the 1st. payload was inserted on th
 
 <img src="/xx.png" alt="pdf metadata" width="800" height="300" />
 
-<img src="/ohMOD.gif" alt="pdf metadata" width="800" height="300" />
+<img src="/oh.gif" alt="pdf metadata" width="800" height="300" />
 
 
 I've always wanted to use that gif... thanks (André)[https://x.com/0xacb/status/1954674644524707894].
