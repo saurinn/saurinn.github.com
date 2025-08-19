@@ -20,7 +20,7 @@ This article explains how I found a Blind XXE via a version of iText which was v
 
 ---
 
-### Mapping phase
+## Mapping phase
 
 My style of hacking is a bit feature-oriented, if I see something interesting or several moving parts working based on a particular functionality, I'm investing my time there. This time I was facing a web application that handles different documents like pictures, .xls and PDF files... Whenever I see some things going on with PDF files I'm definitely taking a look at it. 
 
@@ -51,7 +51,7 @@ Anyway, by looking for iText vulns the first google entry pointed me to a High r
 
 <b>Crafted PDF</b>... cool, this involves some kind of tweak to a PDF file. Some dorks here and there I ran into a [Github repo](https://github.com/jakabakos/CVE-2017-9096-iText-XXE) with working steps to exploit this CVE.
 
-### Exploitation phase
+## Exploitation phase
 
 I went and followed every step, inserted a test XXE code: 
 
@@ -73,7 +73,7 @@ Alright, let's place it on line 742 then... Uploaded it... and ... wait for it..
 
 So yeah, it was in fact a vulnerable iText version to XXE, BUT, that version of Java set me off a little... it was a pretty updated one, and to be honest I didn't want to think it through, trying to stay positive. Well, as always it was time to escalate the bug.
 
-### Escalation phase
+## Escalation phase
 
 Due to the nature of the feature, no direct feedback was available after every upload, therefore an error based XXE was not possible, so I had to go with the Blind route using Out-of-Band attacks to try to exfiltrate internal information.
 
