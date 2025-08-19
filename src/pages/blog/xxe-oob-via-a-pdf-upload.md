@@ -127,9 +127,10 @@ Alright, now with the theory out of the way, the 1st. payload was inserted on th
 <img src="/oh.gif" alt="pdf metadata" width="800" height="300" />
 
 
-I've always wanted to use that gif... thanks [André](https://x.com/0xacb/status/1954674644524707894).
+I always wanted to use that gif... thanks [André](https://x.com/0xacb/status/1954674644524707894).
 
-And just like that I successfully exfiltrated an internal filesystem from the AWS instance. Great, let's try something more sensitive `/etc/passwd`:
+And just like that I successfully exfiltrated an internal filesystem from the AWS instance. 
+Great, let's try reading something more sensitive `/etc/passwd`:
 
 No luck... The call to my collaborator was empty. I tried with different files but still nothing was returned to my collaborator instance... OK, until this point I'd read a ton of writeups about XXE on Java applications and I knew I was facing the line termination (multiline files) restriction, so only single line files could be read out.
 
