@@ -132,7 +132,7 @@ Alright, now with the theory out of the way, the 1st. payload was inserted on th
 <img src="/oh.gif" alt="gif" width="800" height="300" />
 
 
-I always wanted to use that gif... thanks [André](https://x.com/0xacb/status/1954674644524707894).
+I've always wanted to use that gif... thanks [André](https://x.com/0xacb/status/1954674644524707894).
 
 And just like that I successfully exfiltrated an internal filesystem file from the AWS instance. 
 Great, let's try reading something more sensitive `/etc/passwd`:
