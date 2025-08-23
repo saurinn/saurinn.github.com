@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogLayout.astro
-title: From PDF to Pwn: An Out-of-Band XXE via a Vulnerable iText Library
+title: "From PDF to Pwn: An Out-of-Band XXE via a Vulnerable iText Library"
 description: This article explains how I found an XML External Entity (XXE) injection through a specially crafted PDF file.
 tags: ["code", "html"]
 time: 4
@@ -143,7 +143,7 @@ The call to my collaborator was empty. I tried with different files but still no
 
 Time to pull out the FTP trick to exfil multiline files, thanks to [Novikov](https://web.archive.org/web/20141023173000/http://lab.onsec.ru/2014/06/xxe-oob-exploitation-at-java-17.html). I found a [script](https://github.com/lc/230-OOB/blob/master/230.py) created by [Corben Leo](https://x.com/hacker_) that emulates an FTP server for OOB attacks.
 
-After having a some issues setting up the server on my VPS (skill issue), I finally was able to do it. Then, I repeated all the exploitation steps, which lead me to:  
+After having some issues setting up the server on my VPS (skill issue), I finally was able to do it. Then, I repeated all the exploitation steps, which lead me to:  
 
 Nada land, again.
 
