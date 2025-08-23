@@ -127,9 +127,9 @@ Back to the <b>1st. payload</b>:
 
 Alright, now with the theory out of the way, the 1st. payload was inserted on the PDF file, and the malicious DTD file (poc.dtd) ready on a controlled server, it was the moment of truth: upload, select and upload...
 
-<img src="/xx.png" alt="pdf metadata" width="800" height="300" />
+<img src="/xx.png" alt="poc" width="800" height="300" />
 
-<img src="/oh.gif" alt="pdf metadata" width="800" height="300" />
+<img src="/oh.gif" alt="gif" width="800" height="300" />
 
 
 I always wanted to use that gif... thanks [André](https://x.com/0xacb/status/1954674644524707894).
@@ -147,7 +147,9 @@ After having a some issues setting up the server on my VPS (skill issue), I fina
 
 Nada land, again.
 
-At that point time was againts me and I hadn't written the report yet. Wrote everything, helped the triager with the crafted PDF file and report Triaged. 
+At that point time was againts me and I hadn't written the report yet. Wrote everything, helped the triager with the crafted PDF file and the submission was successfuly report Triaged. 
+
+<img src="/props.png" alt="triaged" width="800" height="300" />
 
 After two weeks of back and forth comments with the Program manager, discussing the impact that wasn't quite there because of the termination restriction, we were able to work things out regarding to the final severity and bounty. They were able to backtracked the root cause and worked on a fix with the vendor running the third-party service, I can't say much but it was related to a cloud based product.
 
@@ -155,3 +157,12 @@ After two weeks of back and forth comments with the Program manager, discussing 
 To wrap things up, be patient but consistent, be respectful and professional with the triage/security team because they are humans just like you. This bug taught me that sometimes, a bug's true impact isn't just about the exploit, but also about the communication and collaboration required to get it fixed.
 
 Until next time, happy hacking! 
+
+## References
+
+- Späth, Christopher. "A Security Analysis of a Wide Range of XML Parsers." Master's Thesis, 2015.
+- https://github.com/jakabakos/CVE-2017-9096-iText-XXE.
+- https://web.archive.org/web/20141023173000/http://lab.onsec.ru/2014/06/xxe-oob-exploitation-at-java-17.html
+- https://github.com/lc/230-OOB/blob/master/230.py
+- https://www.intigriti.com/researchers/blog/hacking-tools/exploiting-advanced-xxe-vulnerabilities
+
