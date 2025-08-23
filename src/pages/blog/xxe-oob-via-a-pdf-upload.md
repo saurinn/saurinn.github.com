@@ -147,11 +147,11 @@ After having a some issues setting up the server on my VPS (skill issue), I fina
 
 Nada land, again.
 
-At that point time was againts me and I hadn't written the report yet. Wrote everything, helped the triager with the crafted PDF file and the submission was successfuly report Triaged. 
+At that point time was againts me and I hadn't written the report yet. Wrote everything, helped the triager with the crafted PDF file and the submission was successfuly Triaged. 
 
 <img src="/props.png" alt="triaged" width="800" height="300" />
 
-After two weeks of back and forth comments with the Program manager, discussing the impact that wasn't quite there because of the termination restriction, we were able to work things out regarding to the final severity and bounty. They were able to backtracked the root cause and worked on a fix with the vendor running the third-party service, I can't say much but it was related to a cloud based product.
+After two weeks of back and forth comments with the Program manager, discussing the impact that wasn't quite there because of the line termination restriction, we were able to work things out regarding to the final severity and bounty. They were able to backtracked the root cause and worked on a fix with the vendor running the third-party service, I can't say much but it was related to a cloud based product.
 
 
 To wrap things up, be patient but consistent, be respectful and professional with the triage/security team because they are humans just like you. This bug taught me that sometimes, a bug's true impact isn't just about the exploit, but also about the communication and collaboration required to get it fixed.
