@@ -151,12 +151,14 @@ At that point time was againts me and I hadn't written the report yet. Wrote eve
 
 <img src="/props.png" alt="triaged" width="800" height="300" />
 
-After two weeks of back and forth comments with the Program manager, discussing the impact that wasn't quite there because of the line termination restriction, we were able to work things out regarding to the final severity and bounty. They were able to backtracked the root cause and worked on a fix with the vendor running the third-party service, I can't say much but it was related to a cloud based product.
+After two weeks of back and forth comments with the Program manager, discussing the impact that wasn't quite there because of the line termination restriction, we were able to work things out regarding to the final severity and bounty. They were able to backtrack the root cause and worked on a fix with the vendor running the third-party service, I can't say much but it was related to a cloud based product.
 
 
 To wrap things up, be patient but consistent, be respectful and professional with the triage/security team because they are humans just like you. This bug taught me that sometimes, a bug's true impact isn't just about the exploit, but also about the communication and collaboration required to get it fixed.
 
-A big shoutout to the team at Intigriti for running an awesome bug bounty platform. Until next time, 
+A big shoutout to the team at Intigriti for running an awesome bug bounty platform. 
+
+I hope you find it helpful, until next time.
 
 Happy hacking! 
 
