@@ -143,6 +143,10 @@ The call to my collaborator was empty. I tried with different files but still no
 
 Time to pull out the FTP trick to exfil multiline files, thanks to [Novikov](https://web.archive.org/web/20141023173000/http://lab.onsec.ru/2014/06/xxe-oob-exploitation-at-java-17.html). I found a [script](https://github.com/lc/230-OOB/blob/master/230.py) created by [Corben Leo](https://x.com/hacker_) that emulates an FTP server for OOB attacks.
 
-After having a some issues setting up the server on my VPS (skill issue), I finally was able to do it. Then, I repeated all the exploitation steps, which lead me to...  
+After having a some issues setting up the server on my VPS (skill issue), I finally was able to do it. Then, I repeated all the exploitation steps, which lead me to:  
 
 Nada land, again.
+
+At that point time was againts me and I hadn't written the report yet. Wrote everything, helped the triager with the crafted PDF file and report Triaged. 
+
+After two weeks of back and forth comments with the Program manager, discussing the impact that wasn't quite there because of the termination restriction, we were able to work things out regarding to the final severity and bounty. They were able to backtracked the root cause and worked on a fix with the vendor running the third-party service, I can't say much but it was related to a cloud based product.
