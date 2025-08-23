@@ -156,7 +156,9 @@ After two weeks of back and forth comments with the Program manager, discussing 
 
 To wrap things up, be patient but consistent, be respectful and professional with the triage/security team because they are humans just like you. This bug taught me that sometimes, a bug's true impact isn't just about the exploit, but also about the communication and collaboration required to get it fixed.
 
-Until next time, happy hacking! 
+A big shoutout to the team at Intigriti for running an awesome bug bounty platform. Until next time, 
+
+Happy hacking! 
 
 ## References
 
