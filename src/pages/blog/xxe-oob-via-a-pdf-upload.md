@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogLayout.astro
-title: XXE Out-of-Band via a vulnerable iText library through a PDF file upload
+title: From PDF to Pwn: An Out-of-Band XXE via a Vulnerable iText Library
 description: This article explains how I found an XML External Entity (XXE) injection through a specially crafted PDF file.
 tags: ["code", "html"]
 time: 4
