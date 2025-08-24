@@ -80,4 +80,9 @@ export type ArticleFrontmatter = {
    * (eg. https://zaggonaut.dev/blog/my-article)
    */
   filename: string;
+
+  /**
+   * The header image for the article
+   */
+  image?: string;
 };
