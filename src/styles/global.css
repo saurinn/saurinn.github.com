@@ -121,3 +121,58 @@
   font-weight: var(--shiki-dark-font-weight) !important;
   text-decoration: var(--shiki-dark-text-decoration) !important;
 }
+
+/* Prose.astro styles inline code with a grey pill and white-space: normal, and
+   those prose-code utilities also reach the <code> inside every <pre>. Without
+   this reset, fenced blocks collapse onto one line and lose indentation, which
+   wrecks payload formatting. */
+.prose pre code {
+  white-space: inherit;
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+/* Inline code borrows the hue Shiki already uses inside the fenced blocks on
+   this page, so inline and block code share one colour language instead of
+   looking like two unrelated features. */
+.prose :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  font-weight: 500;
+  color: #6639ba;
+  background-color: rgba(130, 80, 223, 0.09);
+  border-radius: 4px;
+  padding: 0.13em 0.4em;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.dark .prose :not(pre) > code {
+  color: #d2a8ff;
+  background-color: rgba(210, 168, 255, 0.13);
+}
+
+/* Command output is not source, so it keeps a terminal surface in both themes:
+   dark canvas, green ink, like the pane the results came back in. Astro writes
+   Shiki colours as inline styles, so these need !important to override them. */
+.prose pre[data-language="text"] {
+  background-color: #0d1117 !important;
+  color: #7ee787 !important;
+  border-color: #1c2733 !important;
+}
+
+.prose pre[data-language="text"] code,
+.prose pre[data-language="text"] code span {
+  color: inherit !important;
+}
+
+/* @tailwindcss/typography wraps every code element in literal backticks through
+   ::before and ::after content. Monospace already marks these as code. */
+.prose code::before,
+.prose code::after,
+.prose pre code::before,
+.prose pre code::after {
+  content: none;
+}
