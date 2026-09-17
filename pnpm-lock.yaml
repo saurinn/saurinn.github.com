@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  get-east-asian-width: 1.6.0
+
 importers:
 
   .:
@@ -1121,8 +1124,8 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
-  get-east-asian-width@1.7.0:
-    resolution: {integrity: sha512-XjH1AECxf0giL2V1aU8vKyRR2ppRUb5c0EvT7zuJTokQ74bNo52zOtghqdWIqrhUD79fo3x0WfKZdOqxF6LG1Q==}
+  get-east-asian-width@1.6.0:
+    resolution: {integrity: sha512-QRbvDIbx6YklUe6RxeTeleMR0yv3cYH6PsPZHcnVn7xv7zO1BHN8r0XETu8n6Ye3Q+ahtSarc3WgtNWmehIBfA==}
     engines: {node: '>=18'}
 
   github-slugger@2.0.0:
@@ -2841,7 +2844,7 @@ snapshots:
   fsevents@2.3.3:
     optional: true
 
-  get-east-asian-width@1.7.0: {}
+  get-east-asian-width@1.6.0: {}
 
   github-slugger@2.0.0: {}
 
@@ -3651,7 +3654,7 @@ snapshots:
   string-width@7.2.0:
     dependencies:
       emoji-regex: 10.6.0
-      get-east-asian-width: 1.7.0
+      get-east-asian-width: 1.6.0
       strip-ansi: 7.2.0
 
   stringify-entities@4.0.4:
