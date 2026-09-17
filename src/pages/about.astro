@@ -9,12 +9,12 @@ const title = `About | ${GLOBAL.bio.handle}`;
   <section class="band">
     <div class="shell pt-10 pb-16 lg:pt-14 lg:pb-24">
       <h1 class="sr-only">About {GLOBAL.bio.name}</h1>
-      <div class="max-w-[70ch] space-y-6 text-lg leading-8">
+      <div class="space-y-6 text-lg leading-8 hyphens-auto [text-align:justify]">
         <p>{GLOBAL.bio.role}</p>
         <p>{GLOBAL.bio.intro}</p>
       </div>
       <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-base">
-        <a class="quiet-link" href="/blog/">writing</a>
+        <a class="quiet-link" href="/blog/">articles</a>
         <a class="quiet-link" href={GLOBAL.links.github}>github</a>
         <a class="quiet-link" href={GLOBAL.links.x}>x</a>
       </div>

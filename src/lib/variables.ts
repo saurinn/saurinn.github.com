@@ -26,7 +26,7 @@ export const GLOBAL = {
     about: "/about/",
   },
 
-  articlesName: "Writing",
+  articlesName: "Articles",
   profileImage: "empty.png",
 };
 
