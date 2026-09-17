@@ -17,26 +17,17 @@ const profiles: { brand: Brand; name: string; url: string; handle: string }[] = 
 <Layout title={title}>
   <section class="band">
     <div class="shell pt-10 pb-16 lg:pt-14 lg:pb-24">
-      <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">About</h1>
+      <!-- Only "Who am I" is visible; the page and list labels stay for assistive tech. -->
+      <h1 class="sr-only">About {GLOBAL.bio.name}</h1>
 
-      <div class="mt-12 space-y-14">
-        <section aria-labelledby="what-i-do">
-          <h2 id="what-i-do" class="text-2xl font-semibold tracking-tight">What I do</h2>
-          <p class="mt-5 text-lg leading-8 text-justify hyphens-auto">
-            {GLOBAL.bio.role}
-          </p>
-        </section>
+      <section aria-labelledby="who-am-i" class="mt-12">
+        <h2 id="who-am-i" class="text-2xl font-semibold tracking-tight">Who am I</h2>
+        <div class="mt-5 space-y-6 text-lg leading-8 text-justify hyphens-auto">
+          <p>{GLOBAL.bio.role}</p>
+          <p>{GLOBAL.bio.intro}</p>
+        </div>
 
-        <section aria-labelledby="who-am-i">
-          <h2 id="who-am-i" class="text-2xl font-semibold tracking-tight">Who am I</h2>
-          <p class="mt-5 text-lg leading-8 text-justify hyphens-auto">
-            {GLOBAL.bio.intro}
-          </p>
-        </section>
-
-        <section aria-labelledby="profiles">
-          <h2 id="profiles" class="text-2xl font-semibold tracking-tight">Profiles</h2>
-          <ul class="mt-6">
+        <ul class="mt-10" aria-label="Profiles">
             {
               profiles.map((profile) => (
                 <li class="border-t border-neutral-200 dark:border-neutral-800">
@@ -55,9 +46,8 @@ const profiles: { brand: Brand; name: string; url: string; handle: string }[] = 
                 </li>
               ))
             }
-          </ul>
-        </section>
-      </div>
+        </ul>
+      </section>
     </div>
   </section>
 </Layout>
