@@ -3,10 +3,9 @@
 const bio = {
   name: "Manuel Valdez",
   handle: "saurinn",
-  // Second sentence deliberately avoids "passionate".
-  tagline: "Ethical hacker and bug bounty hunter, and by training an electronics engineer.",
-  summary:
-    "Ethical hacker and bug bounty hunter, and by training an electronics engineer. I am relentless about finding security vulnerabilities, and I write up what I find.",
+  role: "Ethical hacker and bug bounty hunter, who happens to be an electronics engineer. I am fascinated about finding security vulnerabilities.",
+  intro:
+    "My name is Manuel Valdez, I go by saurinn/saur1n on the platforms I work with. Most of my time goes into web and API security research, and the posts here are the writeups that came out of it.",
 };
 
 export const GLOBAL = {
