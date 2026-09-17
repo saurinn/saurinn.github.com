@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import IdentityStrip from "../components/IdentityStrip.astro";
 import PostItem from "../components/PostItem.astro";
 import { GLOBAL } from "../lib/variables";
 import { getPosts } from "../lib/posts";
@@ -11,16 +12,20 @@ const title = GLOBAL.bio.handle;
 <Layout title={title}>
   <section class="band">
     <div class="shell pt-10 pb-16 lg:pt-14 lg:pb-24">
+      <IdentityStrip />
+
       <!-- The list is the page; the heading exists for assistive tech only. -->
       <h1 class="sr-only">{GLOBAL.articlesName}</h1>
 
       {
         posts.length === 0 ? (
-          <p class="py-8 text-neutral-600 dark:text-neutral-400">
-            Nothing published yet. Check back soon.
-          </p>
+          <div class="mt-12 border-t border-neutral-200 dark:border-neutral-800 lg:mt-14">
+            <p class="py-8 text-neutral-600 dark:text-neutral-400">
+              Nothing published yet. Check back soon.
+            </p>
+          </div>
         ) : (
-          <div>
+          <div class="mt-12 lg:mt-14">
             {posts.map((post) => (
               <PostItem post={post} />
             ))}

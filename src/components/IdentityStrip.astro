@@ -1,0 +1,34 @@
+---
+import BrandIcon from "./BrandIcon.astro";
+import { PROFILES } from "../lib/profiles";
+import { GLOBAL } from "../lib/variables";
+---
+
+<section aria-label="About the author">
+  <p class="text-lg leading-8 text-neutral-700 dark:text-neutral-300">
+    {GLOBAL.bio.role}
+  </p>
+
+  <nav aria-label="Profiles">
+    <ul class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+      {
+        PROFILES.map((profile) => (
+          <li>
+            <a
+              href={profile.url}
+              rel="me noopener"
+              target="_blank"
+              class="group flex items-center gap-x-2.5 quiet-link"
+            >
+              <BrandIcon
+                brand={profile.brand}
+                class="text-neutral-400 group-hover:text-neutral-900 dark:text-neutral-500 dark:group-hover:text-neutral-50"
+              />
+              <span>{profile.name}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</section>

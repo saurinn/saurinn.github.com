@@ -1,17 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import BrandIcon, { type Brand } from "../components/BrandIcon.astro";
+import BrandIcon from "../components/BrandIcon.astro";
+import { PROFILES } from "../lib/profiles";
 import { GLOBAL } from "../lib/variables";
 
 const title = `About | ${GLOBAL.bio.handle}`;
 
-const profiles: { brand: Brand; name: string; url: string; handle: string }[] = [
-  { brand: "intigriti", name: "Intigriti", ...GLOBAL.links.intigriti },
-  { brand: "hackerone", name: "HackerOne", ...GLOBAL.links.hackerone },
-  { brand: "github", name: "GitHub", ...GLOBAL.links.github },
-  { brand: "x", name: "X", ...GLOBAL.links.x },
-  { brand: "linkedin", name: "LinkedIn", ...GLOBAL.links.linkedin },
-];
 ---
 
 <Layout title={title}>
@@ -29,7 +23,7 @@ const profiles: { brand: Brand; name: string; url: string; handle: string }[] = 
 
         <ul class="mt-10" aria-label="Profiles">
             {
-              profiles.map((profile) => (
+              PROFILES.map((profile) => (
                 <li class="border-t border-neutral-200 dark:border-neutral-800">
                   <a
                     href={profile.url}

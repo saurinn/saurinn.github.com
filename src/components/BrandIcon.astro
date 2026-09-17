@@ -1,10 +1,10 @@
 ---
 // Official Simple Icons paths (CC0), inlined so the marks inherit currentColor
 // and stay legible in both themes instead of shipping fixed brand fills.
-export type Brand = "intigriti" | "hackerone" | "x" | "linkedin" | "github";
+import type { ProfileBrand } from "../lib/profiles";
 
 export interface Props {
-  brand: Brand;
+  brand: ProfileBrand;
   class?: string;
 }
 
