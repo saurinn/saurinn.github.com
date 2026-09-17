@@ -1,0 +1,6 @@
+overrides:
+  get-east-asian-width: 1.6.0
+
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
