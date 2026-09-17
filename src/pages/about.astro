@@ -1,22 +1,62 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import BrandIcon, { type Brand } from "../components/BrandIcon.astro";
 import { GLOBAL } from "../lib/variables";
 
 const title = `About | ${GLOBAL.bio.handle}`;
+
+const profiles: { brand: Brand; name: string; url: string; handle: string }[] = [
+  { brand: "intigriti", name: "Intigriti", ...GLOBAL.links.intigriti },
+  { brand: "hackerone", name: "HackerOne", ...GLOBAL.links.hackerone },
+  { brand: "github", name: "GitHub", ...GLOBAL.links.github },
+  { brand: "x", name: "X", ...GLOBAL.links.x },
+  { brand: "linkedin", name: "LinkedIn", ...GLOBAL.links.linkedin },
+];
 ---
 
 <Layout title={title}>
   <section class="band">
     <div class="shell pt-10 pb-16 lg:pt-14 lg:pb-24">
-      <h1 class="sr-only">About {GLOBAL.bio.name}</h1>
-      <div class="space-y-6 text-lg leading-8 hyphens-auto [text-align:justify]">
-        <p>{GLOBAL.bio.role}</p>
-        <p>{GLOBAL.bio.intro}</p>
-      </div>
-      <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-base">
-        <a class="quiet-link" href="/blog/">articles</a>
-        <a class="quiet-link" href={GLOBAL.links.github}>github</a>
-        <a class="quiet-link" href={GLOBAL.links.x}>x</a>
+      <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">About</h1>
+
+      <div class="mt-12 space-y-14">
+        <section aria-labelledby="what-i-do">
+          <h2 id="what-i-do" class="text-2xl font-semibold tracking-tight">What I do</h2>
+          <p class="mt-5 text-lg leading-8 text-justify hyphens-auto">
+            {GLOBAL.bio.role}
+          </p>
+        </section>
+
+        <section aria-labelledby="who-am-i">
+          <h2 id="who-am-i" class="text-2xl font-semibold tracking-tight">Who am I</h2>
+          <p class="mt-5 text-lg leading-8 text-justify hyphens-auto">
+            {GLOBAL.bio.intro}
+          </p>
+        </section>
+
+        <section aria-labelledby="profiles">
+          <h2 id="profiles" class="text-2xl font-semibold tracking-tight">Profiles</h2>
+          <ul class="mt-6">
+            {
+              profiles.map((profile) => (
+                <li class="border-t border-neutral-200 dark:border-neutral-800">
+                  <a
+                    href={profile.url}
+                    rel="me noopener"
+                    target="_blank"
+                    class="group flex items-center gap-x-4 py-5"
+                  >
+                    <BrandIcon brand={profile.brand} class="text-neutral-500 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-neutral-50" />
+                    <span class="font-medium underline-offset-4 group-hover:underline">
+                      {profile.name}
+                    </span>
+                    <span class="meta ml-auto text-right">{profile.handle}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
       </div>
     </div>
   </section>

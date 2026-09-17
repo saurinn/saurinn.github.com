@@ -17,8 +17,20 @@ export const GLOBAL = {
   bio,
 
   links: {
-    github: "https://github.com/saurinn",
-    x: "https://twitter.com/saur1n",
+    github: { url: "https://github.com/saurinn", handle: "saurinn" },
+    x: { url: "https://twitter.com/saur1n", handle: "@saur1n" },
+    intigriti: {
+      url: "https://app.intigriti.com/profile/saurinn",
+      handle: "saurinn",
+    },
+    hackerone: {
+      url: "https://hackerone.com/saur1n?type=user",
+      handle: "saur1n",
+    },
+    linkedin: {
+      url: "https://www.linkedin.com/in/mjvaldez/",
+      handle: "mjvaldez",
+    },
   },
 
   menu: {
