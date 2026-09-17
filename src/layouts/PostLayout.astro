@@ -1,0 +1,97 @@
+---
+import type { Post } from "../lib/posts";
+import { postUrl, readTime } from "../lib/posts";
+import { processArticleDate } from "../lib/utils";
+import { GLOBAL } from "../lib/variables";
+import Layout from "./Layout.astro";
+import Prose from "../components/Prose.astro";
+
+type Props = {
+  post: Post;
+  previous?: Post;
+  next?: Post;
+};
+
+const { post, previous, next } = Astro.props;
+const canonical = new URL(postUrl(post), GLOBAL.siteUrl).href;
+---
+
+<Layout
+  title={`${post.data.title} | ${GLOBAL.bio.handle}`}
+  description={post.data.description}
+  canonical={canonical}
+>
+  <!-- Masthead uses the full container; the prose below keeps its own narrow measure. -->
+  <header class="band border-b border-neutral-200 dark:border-neutral-800">
+    <div class="shell py-10 lg:py-14">
+      <a
+        href="/blog/"
+        class="inline-flex items-center gap-1.5 text-sm text-neutral-500 underline-offset-4 hover:text-neutral-900 hover:underline dark:text-neutral-400 dark:hover:text-neutral-50">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+        Back to writing</a
+      >
+      <h1
+        class="mt-6 max-w-4xl text-[clamp(1.75rem,1rem+2.2vw,3.25rem)] font-semibold leading-[1.1] tracking-tight"
+      >
+        {post.data.title}
+      </h1>
+      <p class="meta mt-5">
+        <time datetime={post.data.timestamp.toISOString()}>
+          {processArticleDate(post.data.timestamp.toISOString())}
+        </time>
+        <span aria-hidden="true"> &middot; </span>
+        {readTime(post)} min read
+        <span aria-hidden="true"> &middot; </span>
+        {GLOBAL.bio.name}
+      </p>
+    </div>
+  </header>
+
+  <article class="band">
+    <div class="shell py-12 lg:py-16">
+      <Prose>
+        <slot />
+      </Prose>
+    </div>
+  </article>
+
+  {
+    (previous || next) && (
+      <nav
+        aria-label="Post navigation"
+        class="band-alt border-t border-neutral-200 dark:border-neutral-800"
+      >
+        <div class="shell grid gap-6 py-12 sm:grid-cols-2">
+          {previous ? (
+            <a href={postUrl(previous)} class="group block">
+              <span class="meta block">Previous</span>
+              <span class="mt-2 block text-lg font-medium leading-snug underline-offset-4 group-hover:underline">
+                {previous.data.title}
+              </span>
+            </a>
+          ) : (
+            <span />
+          )}
+          {next ? (
+            <a href={postUrl(next)} class="group block sm:text-right">
+              <span class="meta block">Next</span>
+              <span class="mt-2 block text-lg font-medium leading-snug underline-offset-4 group-hover:underline">
+                {next.data.title}
+              </span>
+            </a>
+          ) : null}
+        </div>
+      </nav>
+    )
+  }
+</Layout>

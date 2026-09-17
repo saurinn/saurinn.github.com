@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/BlogLayout.astro
 title: "From PDF to Pwn: An Out-of-Band XXE via a vulnerable iText Library"
 description: This article explains how I found an XML External Entity (XXE) injection through a specially crafted PDF file.
 tags: ["code", "html"]
@@ -7,7 +6,6 @@ time: 8
 featured: true
 image: /empty.png
 timestamp: 2025-08-23T11:12:03+00:00
-filename: xxe-oob-via-a-pdf-upload
 ---
 
 Hey there! My name's Manuel Valdez, I go by the handles saurinn/saur1n across different bug bounty platforms but I spend my free time hacking on intigriti, mostly. This is my first writeup so go easy on me.
@@ -170,4 +168,3 @@ Happy hacking!
 - https://web.archive.org/web/20141023173000/http://lab.onsec.ru/2014/06/xxe-oob-exploitation-at-java-17.html
 - https://github.com/lc/230-OOB/blob/master/230.py
 - https://www.intigriti.com/researchers/blog/hacking-tools/exploiting-advanced-xxe-vulnerabilities
-

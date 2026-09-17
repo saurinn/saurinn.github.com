@@ -1,0 +1,39 @@
+---
+import type { Post } from "../lib/posts";
+import { postUrl, readTime } from "../lib/posts";
+import { processArticleDate } from "../lib/utils";
+
+export type Props = {
+  post: Post;
+};
+
+const { post } = Astro.props;
+---
+
+<!-- Row spans the whole container: title and summary left, dates right-aligned. -->
+<article
+  class="group grid grid-cols-1 gap-x-10 gap-y-3 border-t border-neutral-200 py-8 md:grid-cols-[minmax(0,1fr)_11rem] dark:border-neutral-800"
+>
+  <div>
+    <h3
+      class="text-xl font-semibold leading-snug tracking-tight sm:text-[1.6rem] sm:leading-tight"
+    >
+      <a href={postUrl(post)} class="underline-offset-4 group-hover:underline">
+        {post.data.title}
+      </a>
+    </h3>
+    <p
+      class="mt-3 max-w-[70ch] text-base leading-relaxed text-neutral-600 dark:text-neutral-400"
+    >
+      {post.data.description}
+    </p>
+  </div>
+  <div
+    class="meta flex gap-x-3 md:col-start-2 md:row-start-1 md:flex-col md:items-end md:gap-x-0 md:gap-y-1"
+  >
+    <time datetime={post.data.timestamp.toISOString()}>
+      {processArticleDate(post.data.timestamp.toISOString())}
+    </time>
+    <span>{readTime(post)} min read</span>
+  </div>
+</article>

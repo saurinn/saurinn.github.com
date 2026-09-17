@@ -1,47 +1,58 @@
 ---
-import { GLOBAL } from "../lib/variables";
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/home/Hero.astro";
-import Section from "../components/common/Section.astro";
-import FeaturedArticles from "../components/home/FeaturedArticles.astro";
-import { featuredArticles } from "../lib/featured";
+import PostItem from "../components/PostItem.astro";
+import { GLOBAL } from "../lib/variables";
+import { getPosts } from "../lib/posts";
+
+const posts = await getPosts();
+const latest = posts.slice(0, 6);
+const title = `${GLOBAL.bio.handle} | Ethical hacker and bug bounty hunter`;
 ---
 
-<Layout>
-  <Fragment slot="head">
-    <title>{GLOBAL.username} | {GLOBAL.shortDescription}</title>
-    <meta
-      name="description"
-      content={GLOBAL.longDescription}
-    />
-    <meta
-      property="og:title"
-      content={`${GLOBAL.username} • ${GLOBAL.shortDescription}`}
-    />
-    <meta
-      property="og:description"
-      content={GLOBAL.longDescription}
-    />
-    <meta property="og:image" content={`${GLOBAL.rootUrl}/zaggonaut.png`} /> 
-    <meta property="og:url" content={GLOBAL.rootUrl} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content={`${GLOBAL.username} • ${GLOBAL.shortDescription}`}
-    />
-    <meta
-      name="twitter:description"
-      content={GLOBAL.longDescription}
-    />
-    <meta name="twitter:image" content={`${GLOBAL.rootUrl}/zaggonaut.png`} />
-    <meta http-equiv="content-language" content="en" />
-    <meta name="language" content="English" />
-    <link rel="canonical" href={GLOBAL.rootUrl} />
-  </Fragment>
-  <Section class="my-16">
-    <Hero />
-  </Section>
-  <Section>
-    <FeaturedArticles featuredArticles={featuredArticles} />
-  </Section>
+<Layout title={title}>
+  <!-- Full-bleed hero. Band owns the background, shell owns the width limit. -->
+  <section class="band flex items-center lg:min-h-[100svh]">
+    <div class="shell py-20 lg:py-0">
+      <div class="w-full">
+        <p class="meta mb-6 uppercase tracking-[0.2em]">
+          {GLOBAL.bio.name}
+        </p>
+        <h1
+          class="max-w-[26ch] text-[clamp(2.25rem,1rem+4.5vw,5rem)] font-semibold leading-[1.05] tracking-tight"
+        >
+          Ethical hacker, bug bounty hunter, electronics engineer.
+        </h1>
+        <p
+          class="mt-8 max-w-[58ch] text-lg leading-relaxed text-neutral-600 dark:text-neutral-400 sm:text-xl"
+        >
+          {GLOBAL.bio.summary}
+        </p>
+        <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-base">
+          <a
+            href="/blog/"
+            class="rounded-md bg-neutral-900 px-5 py-2.5 font-medium text-neutral-50 hover:bg-neutral-700 dark:bg-neutral-50 dark:text-neutral-900 dark:hover:bg-neutral-300">Read the blog</a
+          >
+          <a class="quiet-link" href={GLOBAL.links.github}>github</a>
+          <a class="quiet-link" href={GLOBAL.links.x}>x</a>
+          <a class="quiet-link" href="/about/">about me</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-alt" id="writing">
+    <div class="shell py-16 lg:py-24">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <h2 class="text-2xl font-semibold tracking-tight sm:text-3xl">
+          {GLOBAL.articlesName}
+        </h2>
+        <a class="quiet-link text-sm" href="/blog/">all posts</a>
+      </div>
+      <div class="mt-8">
+        {
+          latest.map((post) => <PostItem post={post} />)
+        }
+      </div>
+    </div>
+  </section>
 </Layout>

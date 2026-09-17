@@ -1,43 +1,34 @@
-// Set any item to undefined to remove it from the site or to use the default value
+// Single source of truth for site identity, copy and links.
+
+const bio = {
+  name: "Manuel Valdez",
+  handle: "saurinn",
+  // Second sentence deliberately avoids "passionate".
+  tagline: "Ethical hacker and bug bounty hunter, and by training an electronics engineer.",
+  summary:
+    "Ethical hacker and bug bounty hunter, and by training an electronics engineer. I am relentless about finding security vulnerabilities, and I write up what I find.",
+};
 
 export const GLOBAL = {
-  // Site metadata
-  username: "~/saurinn",
-  rootUrl: "https://saurinn.github.com",
-  shortDescription: ">Web application security blog <br>>Bug bounty hunting stuff",
-  longDescription: "Zaggonaut is a retro-inspired theme for Astro, built using TypeScript, TailwindCSS, and Astro.",
-  
-  // Social media links
-  githubProfile: "https://github.com/saurinn",
-  twitterProfile: "https://twitter.com/saur1n",
-  //linkedinProfile: "",
-  
-  // Common text names used throughout the site
-  articlesName: "Articles",
-  //projectsName: "Projects",
-  viewAll: "View All",
-  
-  // Common descriptions used throughout the site
-  noArticles: "No featured articles yet.",
-  //noProjects: "No featured projects yet.",
+  siteUrl: "https://saurinn.github.io",
+  title: "saurinn",
+  description:
+    "Web application security research and bug bounty writeups by Manuel Valdez (saurinn), an ethical hacker and electronics engineer.",
 
-  // Blog metadata
-  blogTitle: "manuel valdez | saurinn",
-  blogShortDescription: ">Web application security blog <br>>Bug bounty hunting stuff",
-  blogLongDescription: ">Web application security blog <br>>Bug bounty hunting stuff",
+  bio,
 
-  // Project metadata
-  //projectTitle: "Projects and Code",
-  //projectShortDescription: "A list of my web development projects and developer tools.",
-  //projectLongDescription: "All of my projects, including both frontend and full-stack applications.",
+  links: {
+    github: "https://github.com/saurinn",
+    x: "https://twitter.com/saur1n",
+  },
 
-  // Profile image
-  profileImage: "empty.png",
-
-  // Menu items
   menu: {
-    home: "/",
-    //projects: "/projects",
-    blog: "/blog",
-  }
+    blog: "/blog/",
+    about: "/about/",
+  },
+
+  articlesName: "Writing",
+  profileImage: "empty.png",
 };
+
+export type GlobalConfig = typeof GLOBAL;

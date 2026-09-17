@@ -1,0 +1,62 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { GLOBAL } from "../lib/variables";
+
+const title = `About | ${GLOBAL.bio.handle}`;
+
+const focus = [
+  {
+    name: "Web application security",
+    detail:
+      "Business logic flaws, authorisation and IDOR chains, SSRF, XML external entity injection, and the upload pipelines that quietly sit behind them.",
+  },
+  {
+    name: "Hardware and firmware",
+    detail:
+      "Electronics engineering background, so serial consoles, JTAG, SPI flash and board-level debugging are part of the normal toolkit rather than a specialty.",
+  },
+  {
+    name: "Public disclosure",
+    detail:
+      "Every finding gets written up plainly: how it worked, what the blast radius was, and what it took to get it fixed.",
+  },
+];
+---
+
+<Layout title={title}>
+  <section class="band">
+    <div class="shell py-16 lg:py-24">
+      <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl">About</h1>
+      <div class="mt-8 max-w-prose space-y-6 text-lg leading-8 text-neutral-700 dark:text-neutral-300">
+        <p>{GLOBAL.bio.summary}</p>
+        <p>
+          I go by saurinn on the platforms I work with. Most of my time goes into
+          web and API security research, and the posts here are the writeups that
+          came out of it.
+        </p>
+      </div>
+      <div class="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-base">
+        <a class="quiet-link" href={GLOBAL.links.github}>github</a>
+        <a class="quiet-link" href={GLOBAL.links.x}>x</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-alt border-t border-neutral-200 dark:border-neutral-800">
+    <div class="shell py-16 lg:py-24">
+      <h2 class="text-2xl font-semibold tracking-tight">What I hunt</h2>
+      <div class="mt-10 grid gap-x-10 gap-y-10 sm:grid-cols-2 xl:grid-cols-3 xl:gap-x-14">
+        {
+          focus.map((area) => (
+            <div class="border-t border-neutral-200 pt-6 dark:border-neutral-800">
+              <h3 class="text-lg font-semibold tracking-tight">{area.name}</h3>
+              <p class="mt-3 text-base leading-relaxed text-neutral-600 dark:text-neutral-400">
+                {area.detail}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,19 +1,24 @@
 ---
-import Section from "../components/common/Section.astro";
 import Layout from "../layouts/Layout.astro";
+import { GLOBAL } from "../lib/variables";
+
+const title = `Not found | ${GLOBAL.bio.handle}`;
 ---
 
-<Layout>
-  <Section class="mt-16">
-    <h1 class="text-3xl sm:text-4xl font-display pb-8">
-      Well, this is awkward
-    </h1>
-    <h2 class="text-xl sm:text-2xl pb-8">404 - Page not found</h2>
-    <p>
-      It seems that this page does not exist. If you want to return to safety, <a
-        class="underline underline-offset-4 font-medium"
-        href="/">click here to go home</a
-      >.
-    </p>
-  </Section>
+<Layout title={title}>
+  <section class="band flex min-h-[70svh] items-center">
+    <div class="shell py-20">
+      <p class="meta uppercase tracking-[0.2em]">404</p>
+      <h1 class="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+        This page does not exist.
+      </h1>
+      <p class="mt-6 max-w-prose text-lg leading-8 text-neutral-600 dark:text-neutral-400">
+        The writeup you are after may have moved. Start from the index instead.
+      </p>
+      <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-base">
+        <a href="/" class="quiet-link">home</a>
+        <a href="/blog/" class="quiet-link">all posts</a>
+      </div>
+    </div>
+  </section>
 </Layout>

@@ -1,7 +1,22 @@
 ---
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import { GLOBAL } from "../lib/variables";
 import "../styles/global.css";
+
+type Props = {
+  title: string;
+  description?: string;
+  canonical?: string;
+};
+
+const {
+  title,
+  description = GLOBAL.description,
+  canonical = new URL(Astro.url.pathname, GLOBAL.siteUrl).href,
+} = Astro.props;
+
+const ogImage = `${GLOBAL.siteUrl}/${GLOBAL.profileImage}`;
 ---
 
 <!doctype html>
@@ -9,18 +24,52 @@ import "../styles/global.css";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={GLOBAL.title} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <link rel="preconnect" href="https://fonts.bunny.net" />
     <link
-      href="https://fonts.bunny.net/css?family=ibm-plex-mono:400,400i,500,500i,600,600i,700,700i"
       rel="stylesheet"
+      href="https://fonts.bunny.net/css?family=inter:400,500,600,700&display=swap"
     />
+
+    <!-- Runs before first paint so the stored theme never flashes the wrong colours. -->
+    <script is:inline>
+      (() => {
+        try {
+          const stored = localStorage.getItem("theme");
+          const dark = stored
+            ? stored === "dark"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.classList.toggle("dark", dark);
+        } catch {
+          /* private mode or JS off: fall back to CSS defaults */
+        }
+      })();
+    </script>
     <slot name="head" />
   </head>
-  <body class="zag-bg zag-text zag-transition font-mono">
+  <body class="flex min-h-screen w-full flex-col">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-neutral-900 focus:px-4 focus:py-2 focus:text-neutral-50 dark:focus:bg-neutral-50 dark:focus:text-neutral-900">Skip to content</a
+    >
     <Header />
-    <main>
+    <main id="main" class="w-full flex-1">
       <slot />
     </main>
     <Footer />
