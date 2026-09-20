@@ -1,7 +1,5 @@
 ---
 import { GLOBAL } from "../lib/variables";
-
-const year = new Date().getFullYear();
 ---
 
 <footer class="band border-t border-neutral-200 dark:border-neutral-800">
@@ -10,13 +8,10 @@ const year = new Date().getFullYear();
   >
     <nav aria-label="Elsewhere">
       <ul class="flex flex-wrap items-center gap-x-5 gap-y-2">
-        <li><a class="quiet-link" href={GLOBAL.links.github.url} rel="me">github</a></li>
-        <li><a class="quiet-link" href={GLOBAL.links.x.url} rel="me">x</a></li>
-        <li><a class="quiet-link" href="/about/">about</a></li>
+        <li><a class="quiet-link" href={GLOBAL.menu.blog}>Blog</a></li>
+        <li><a class="quiet-link" href={GLOBAL.links.x.url} rel="me">X</a></li>
+        <li><a class="quiet-link" href={GLOBAL.menu.about}>About</a></li>
       </ul>
     </nav>
-    <p class="meta">
-      &copy; {year} {GLOBAL.bio.name}
-    </p>
   </div>
 </footer>
