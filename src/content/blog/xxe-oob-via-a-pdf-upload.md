@@ -8,7 +8,7 @@ image: /empty.png
 timestamp: 2025-08-23T11:12:03+00:00
 ---
 
-Hey there! My name's Manuel Valdez, I go by the handles saurinn/saur1n across different bug bounty platforms but I spend my free time hacking on intigriti, mostly. This is my first writeup so go easy on me.
+Hey there! My name's Manuel Valdez, I go by the handles saurinn/saur1n across different bug bounty platforms but I spend my free time hacking on Intigriti, mostly. This is my first writeup so go easy on me.
 
 ## Summary
 
@@ -48,7 +48,7 @@ Java, iText, some guy named Paulo and some weird looking domain... Alright, bein
 >Btw, Paulo was the main dev from the project and the domain just a mistake by some dev of using the dash char to separate two domains (itextpdf.sf.net and lowagie.com) which we all know that's a no-no (of course, later on, someone totally not malicious registered <b>net-lowagie.com</b>, 🐟🎣...)
 
 
-Anyway, by looking for iText vulns the first google entry pointed me to a High rated vulnerability, XXE, with an CVE assigned to it <b>CVE-2017-9096</b>.
+Anyway, by looking for iText vulns the first google entry pointed me to a High rated vulnerability, XXE, with a CVE assigned to it <b>CVE-2017-9096</b>.
 
 >	The XML parsers in iText before 5.5.12 and 7.x before 7.0.3 do not disable external entities, which might allow remote attackers to conduct XML external entity (XXE) attacks via a crafted PDF.
 
@@ -62,7 +62,7 @@ I went and followed every step, inserted an initial XXE payload:
 <!DOCTYPE foo [ <!ENTITY xxe SYSTEM "http://collab">]>
 ```
 
-to initally test for an SSRF on the suggested lines, uploaded it to the app and waited for a ping back to my collaborator... Nada... It has to be vulnerable right? Embedding the payload on different sections of the PDF file did nothing different. Changing the controlled host for some other just in case they had a blacklist on [well known OOB domains](https://x.com/saur1n/status/1888591256957210864) but still nothing.
+to initially test for an SSRF on the suggested lines, uploaded it to the app and waited for a ping back to my collaborator... Nada... It has to be vulnerable right? Embedding the payload on different sections of the PDF file did nothing different. Changing the controlled host for some other just in case they had a blacklist on [well known OOB domains](https://x.com/saur1n/status/1888591256957210864) but still nothing.
 
 By looking at the sample PDF file used for this exploit with nano (I use nano btw...) I had to find some other place to insert the code, searching for the string `<?xml` gave me some matches but on line 741 I saw this:
 
@@ -142,15 +142,15 @@ The call to my collaborator was empty. I tried with different files but still no
 
 Time to pull out the FTP trick to exfil multiline files, thanks to [Novikov](https://web.archive.org/web/20141023173000/http://lab.onsec.ru/2014/06/xxe-oob-exploitation-at-java-17.html). I found a [script](https://github.com/lc/230-OOB/blob/master/230.py) created by [Corben Leo](https://x.com/hacker_) that emulates an FTP server for OOB attacks.
 
-After having some issues setting up the server on my VPS (skill issue), I finally was able to do it. Then, I repeated all the exploitation steps, which lead me to:  
+After having some issues setting up the server on my VPS (skill issue), I finally was able to do it. Then, I repeated all the exploitation steps, which led me to:  
 
 Nada land, again.
 
-At that point time was againts me and I hadn't written the report yet. Wrote everything, helped the triager with the crafted PDF file and the submission was successfuly Triaged. 
+At that point time was against me and I hadn't written the report yet. Wrote everything, helped the triager with the crafted PDF file and the submission was successfully Triaged. 
 
 <img src="/props.png" alt="triaged" width="800" height="300" />
 
-After two weeks of back and forth comments with the Program manager, discussing the impact that wasn't quite there because of the line termination restriction, we were able to work things out regarding to the final severity and bounty. They were able to backtrack the root cause and worked on a fix with the vendor running the third-party service, I can't say much but it was related to a cloud based product.
+After two weeks of back and forth comments with the Program manager, discussing the impact that wasn't quite there because of the line termination restriction, we were able to work things out regarding the final severity and bounty. They were able to backtrack the root cause and worked on a fix with the vendor running the third-party service, I can't say much but it was related to a cloud based product.
 
 
 To wrap things up, be patient but consistent, be respectful and professional with the triage/security team because they are humans just like you. This bug taught me that sometimes, a bug's true impact isn't just about the exploit, but also about the communication and collaboration required to get it fixed.
