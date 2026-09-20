@@ -6,40 +6,66 @@ import { GLOBAL } from "../lib/variables";
 
 const title = `About | ${GLOBAL.bio.handle}`;
 
+const profiles = PROFILES;
+const email = GLOBAL.links.email;
 ---
 
 <Layout title={title}>
   <section class="band">
     <div class="shell pt-10 pb-16 lg:pt-14 lg:pb-24">
-      <!-- Only "Who am I" is visible; the page and list labels stay for assistive tech. -->
+      <!-- Only the section headings are visible; this labels the page for assistive tech. -->
       <h1 class="sr-only">About {GLOBAL.bio.name}</h1>
 
-      <section aria-labelledby="who-am-i" class="mt-12">
+      <section aria-labelledby="who-am-i">
         <h2 id="who-am-i" class="text-2xl font-semibold tracking-tight">Who am I</h2>
         <div class="mt-5 space-y-6 text-lg leading-8 text-justify hyphens-none">
-          <p>{GLOBAL.bio.role}</p>
-          <p>{GLOBAL.bio.intro}</p>
+          <p>{GLOBAL.bio.aboutLead}</p>
+          <p>{GLOBAL.bio.aboutBody}</p>
         </div>
+      </section>
 
-        <ul class="mt-10" aria-label="Profiles">
-            {
-              PROFILES.map((profile) => (
-                <li class="border-t border-neutral-200 dark:border-neutral-800">
-                  <a
-                    href={profile.url}
-                    rel="me noopener"
-                    target="_blank"
-                    class="group flex items-center gap-x-4 py-5"
-                  >
-                    <BrandIcon brand={profile.brand} class="text-neutral-500 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-neutral-50" />
-                    <span class="font-medium underline-offset-4 group-hover:underline">
-                      {profile.name}
-                    </span>
-                    <span class="meta ml-auto text-right">{profile.handle}</span>
-                  </a>
-                </li>
-              ))
-            }
+      <section aria-labelledby="where-to-find-me" class="mt-14">
+        <h2 id="where-to-find-me" class="text-2xl font-semibold tracking-tight">Where to find me</h2>
+        <ul class="mt-6" aria-label="Profiles">
+          {
+            profiles.map((profile) => (
+              <li class="border-t border-neutral-200 dark:border-neutral-800">
+                <a
+                  href={profile.url}
+                  rel="me noopener"
+                  target="_blank"
+                  class="group flex items-center gap-x-4 py-5"
+                >
+                  <BrandIcon brand={profile.brand} class="text-neutral-500 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-neutral-50" />
+                  <span class="font-medium underline-offset-4 group-hover:underline">
+                    {profile.name}
+                  </span>
+                  <span class="meta ml-auto text-right">{profile.handle}</span>
+                </a>
+              </li>
+            ))
+          }
+          <li class="border-t border-neutral-200 dark:border-neutral-800" />
+        </ul>
+      </section>
+
+      <section aria-labelledby="get-in-touch" class="mt-14">
+        <h2 id="get-in-touch" class="text-2xl font-semibold tracking-tight">Get in touch</h2>
+        <p class="mt-5 text-lg leading-8 text-justify hyphens-none">{GLOBAL.bio.inquiries}</p>
+        <ul class="mt-6" aria-label="Contact">
+          <li class="border-t border-neutral-200 dark:border-neutral-800">
+            <a
+              href={`mailto:${email}?subject=Security%20assessment%20inquiry`}
+              class="group flex items-center gap-x-4 py-5"
+            >
+              <BrandIcon brand="gmail" class="text-neutral-500 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-neutral-50" />
+              <span class="font-medium underline-offset-4 group-hover:underline">
+                Email
+              </span>
+              <span class="meta ml-auto text-right break-all">{email}</span>
+            </a>
+          </li>
+          <li class="border-t border-neutral-200 dark:border-neutral-800" />
         </ul>
       </section>
     </div>
