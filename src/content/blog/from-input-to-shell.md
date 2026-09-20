@@ -1,5 +1,5 @@
 ---
-title: "From input to shell: a valid URL with a command in its shadow"
+title: "test2shells - A valid URL with a Command in its Shadow"
 description: "A connectivity test panel in a bug bounty program took an SSH host, shrugged off thirty minutes of SSRF testing, and never expected a semicolon."
 tags: ["command-injection", "ssrf", "php", "bug-bounty"]
 time: 6
@@ -9,9 +9,9 @@ timestamp: 2026-09-17T18:00:00+00:00
 
 ## Summary
 
-Both findings came out of a bug bounty program on a product that spins up cloud servers for its customers. The first was a test panel where you supplied an SSH host, an SSH user and a password, the application attempted the connection so you could confirm reachability before committing anything, and whatever it learned came back to an output pane on screen with the HTTP status code included. The second was a feature for downloading config files over SSH, which took that same host value into another command. Neither bug needed a clever payload. Both needed me to notice that the application was not making the connection itself but handing my input to `curl` inside a shell, and once that was clear, the only thing left to find was a separator the parser did not expect.
+I found two OS command injections in a bug bounty program in two different features of a platform that provisions cloud servers for its customers. Both took an SSH host and passed it to `curl` inside a shell rather than making the connection themselves, and one of them ran the resulting command as root.
 
-## The ssh host field, and the thirty minutes that went nowhere
+## The SSH host field, and the thirty minutes that went nowhere
 
 A panel that tests credentials against a host someone typed in is a good place to look, because the natural way to build it is to invoke a binary rather than speak the protocol yourself. I put my collaborator server in the **SSH host** field, which is where the injection turned out to be, watched the request land, and went straight for SSRF.
 
@@ -23,7 +23,7 @@ My collaborator had logged the incoming request, and the User-Agent said `curl/7
 
 If that was true, I had been testing the wrong vulnerability class entirely. The interesting question was not "can this reach an internal host", it was "what else runs after my value ends".
 
-The target runs PHP, so the shape I assumed was something along these lines:
+The target runs PHP, so I assumed the code behind it was something along these lines:
 
 ```php
 <?php
@@ -33,19 +33,17 @@ The target runs PHP, so the shape I assumed was something along these lines:
 ?>
 ```
 
-Whether that idea was testable came down to validation, and the two places that took this field did not agree with each other. One of them let a bare semicolon through, which is where I started.
+Whether that idea was exploitable came down to validation, and the two entry points that took that field validated it differently. One of them let a bare semicolon through, which is where I started.
 
 ## Bug 1: root, and a trailing semicolon
 
-The connectivity test panel validated the host loosely enough that a bare semicolon survived it, which is why this one turned out to be the easier of the two to prove.
-
-A command line is only a string until the shell splits it. If my input is interpolated unquoted, a metacharacter ends the first command and starts a second one. My first working proof was:
+The connectivity test panel validated the host loosely enough that a bare semicolon survived it, which is why this one turned out to be the easier of the two to prove. A command line is only a string until the shell splits it. If my input is interpolated unquoted, a metacharacter ends the first command and starts a second one. My first working proof was:
 
 ```bash
 http://example.com;id
 ```
 
-Except it did not work at first. The application was clearly passing more arguments after the URL, and everything following my injected command became *its* arguments, so `id` received flags it did not understand and printed nothing useful. The fix was one more character, placed to close my command before the rest of the template could attach to it:
+Except it didn't work at first. The application was clearly passing more arguments after the URL, and everything following my injected command became *its* arguments, so `id` received flags it didn't understand and printed nothing useful. The fix was one more character, placed to close my command before the rest of the template could attach to it:
 
 ```bash
 http://example.com;id;
@@ -57,7 +55,7 @@ The output pane came back with:
 200uid=0(root) gid=0(root) groups=0(root)
 ```
 
-The process behind that panel runs as root, so anything placed after my semicolon inherited uid=0. The only thing standing between that and a worse outcome was the filter on spaces: the parser rejected them inside the injected portion, so reading a file meant using the field separator variable as the whitespace character instead:
+The process behind that panel ran as root, so anything placed after my semicolon inherited uid=0. The only thing standing between that and a worse outcome was the filter on spaces: the parser rejected them inside the injected portion, so reading a file meant using the field separator variable as the whitespace character instead:
 
 ```bash
 http://example.com;cat$IFS/etc/passwd;
@@ -71,13 +69,13 @@ daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
 
 ## Bug 2: the same shell, behind a URL parser
 
-The config download feature was stricter. It rejected semicolons outright, and this is where the interesting part lives.
+The file configuration download feature was a bit tighter. It rejected semicolons outright, and this is where the interesting part lives.
 
-I sent `https://example.com;id` into that host field and the application told me the URL was not valid. Worth noting: the check happened on the backend too, not only in the browser, so editing the value client side was not going to help. Whatever was validating my input was the same layer that decided whether to run the command, and a parser stood between me and the shell.
+I sent `https://example.com;id` into that host field and the application told me the URL wasn't valid. Worth noting: the check happened on the backend too, not only in the browser, so editing the value client side wasn't going to help. Whatever was validating my input was the same layer that decided whether to run the command, and a parser stood between me and the shell.
 
-A validator that "checks the URL is well formed" only describes the characters it recognises as structure. RFC 3986 section 3.2 defines the authority component as running until the next `/`, `?` or `#`. Everything after that is the query, and query strings are allowed to contain punctuation a shell considers syntax. I remembered Orange Tsai's "A New Era of SSRF" talk making exactly this point about parsers disagreeing with one another.
+A validator that "checks the URL is well formed" only describes the characters it recognizes as structure. RFC 3986 section 3.2 defines the authority component as running until the next `/`, `?` or `#`. Everything after that is the query or the fragment, and both are allowed to carry punctuation a shell considers syntax. I remembered Orange Tsai's "A New Era of SSRF" talk making exactly this point about parsers disagreeing with one another.
 
-<img src="/url-parsers-rfc3986.jpg" alt="Slide listing cURL, PHP and Python as affected by URL parser differences, quoting RFC 3968 section 3.2 on where the authority component terminates." width="1114" height="566" />
+<img src="/url-parsers-rfc3986.jpg" alt="Slide listing cURL, PHP and Python as affected by URL parser differences, quoting RFC 3986 section 3.2 on where the authority component terminates." width="1114" height="566" />
 
 <img src="/url-parsers-authority.jpg" alt="Slide diagramming http://google.com#@evil.com/, where PHP parse_url reports google.com as the host but readfile sends the request to evil.com." width="1134" height="576" />
 
@@ -88,7 +86,7 @@ https://example.com?;id
 https://example.com#;id
 ```
 
-The first one passed validation and executed.
+Both of them passed the validation and were executed.
 
 The output pane gave:
 
@@ -96,13 +94,11 @@ The output pane gave:
 HTTP - 200uid=1111(REDACTED) gid=1111(REDACTED) groups=1111(REDACTED)
 ```
 
-Command execution as the service user. This one ran inside a per-user container, so the blast radius was narrower than the root finding, and I said so plainly in the report rather than implying a full host compromise. Severity followed the sandbox that was actually reached, not the letters RCE.
-
-
+That was the service user, not root, and the container belonged to a single customer, so the damage stopped at that boundary. It was still code execution on their infrastructure, and the container was the only thing holding it back.
 
 ## Disclosure
 
-Both reports went through Intigriti and the program handled them the good kind of uneventful: triaged, reproduced, fixed. The first was graded Exceptional and paid the maximum bounty the program offers.
+Both reports went through Intigriti and the program handled them very quickly: triaged, reproduced and fixed within two days. The first was graded Exceptional and paid the maximum bounty the program offers.
 
 <img src="/bounty-root.jpg" alt="Intigriti notification awarding $10,000 for the report, with the program name redacted." width="519" height="94" />
 
