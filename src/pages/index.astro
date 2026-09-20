@@ -6,7 +6,7 @@ import { GLOBAL } from "../lib/variables";
 import { getPosts } from "../lib/posts";
 
 const posts = await getPosts();
-const title = GLOBAL.bio.handle;
+const title = `${GLOBAL.bio.handle} | Blog - ${GLOBAL.bio.name}`;
 ---
 
 <Layout title={title}>
