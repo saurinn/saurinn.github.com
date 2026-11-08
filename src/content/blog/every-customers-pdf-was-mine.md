@@ -46,9 +46,7 @@ This is the same request body sent twice, differing in one field, and the two an
 
 ## Any path will do
 
-Even a single known path would already be a cross-tenant read. What makes this worse is that the path is not something you have to steal, it is something you can build.
-
-This is how one of those paths is built, with a real one underneath the shape.
+Even a single known path would already be a cross-tenant read. What makes this worse is that the path is not something you have to steal, it is something you can build. This is how one of those paths is built, with a real one underneath the shape:
 
 <img src="/diag-d.svg" alt="Two monospace lines. The top one, labelled shape, reads docs slash userId slash uploadTime underscore 1 dot pdf, with the two placeholders in violet. The lower one, labelled one real path, reads docs slash 1002 slash 1793669694 underscore 1 dot pdf, with the two numbers in red, each underlined and captioned victim's account id and Unix timestamp, and a dashed leader running from each placeholder down to the number that fills it." width="860" height="250" class="dark:hidden max-w-full h-auto" />
 <img src="/diag-d-dark.svg" alt="" width="860" height="250" aria-hidden="true" class="hidden dark:block max-w-full h-auto" />
