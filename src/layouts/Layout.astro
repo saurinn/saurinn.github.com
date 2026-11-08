@@ -1,5 +1,6 @@
 ---
 import Footer from "../components/Footer.astro";
+import Interactions from "../components/Interactions.astro";
 import Header from "../components/Header.astro";
 import { GLOBAL } from "../lib/variables";
 import "../styles/global.css";
@@ -51,6 +52,7 @@ const ogImage = `${GLOBAL.siteUrl}/${GLOBAL.profileImage}`;
     <script is:inline>
       (() => {
         try {
+          document.documentElement.classList.add("js");
           const stored = localStorage.getItem("theme");
           const dark = stored
             ? stored === "dark"
@@ -73,5 +75,6 @@ const ogImage = `${GLOBAL.siteUrl}/${GLOBAL.profileImage}`;
       <slot />
     </main>
     <Footer />
+    <Interactions />
   </body>
 </html>

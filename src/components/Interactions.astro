@@ -1,0 +1,102 @@
+---
+---
+
+<!-- One hairline for reading progress. Nothing is mounted that a reader without
+     javascript would notice: every behaviour below is an enhancement. -->
+<div id="reading-progress" aria-hidden="true"></div>
+
+<script is:inline>
+  (() => {
+    const doc = document;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prose = doc.querySelector("article .prose");
+
+    /* Reveal. Blocks are marked here rather than in the content, so a post file
+       stays prose and not a pile of attributes. Anything already on screen is
+       revealed by the observer's first pass. */
+    if (prose && !reduced) {
+      for (const el of prose.children) el.setAttribute("data-reveal", "");
+    }
+    const targets = [...doc.querySelectorAll("[data-reveal]")];
+    if (reduced || !("IntersectionObserver" in window)) {
+      for (const el of targets) el.classList.add("revealed");
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            entry.target.classList.add("revealed");
+            io.unobserve(entry.target);
+          }
+        },
+        { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
+      );
+      for (const el of targets) io.observe(el);
+    }
+
+    /* Copy buttons. Readers of these posts lift commands and request bodies out
+       of the page constantly, so the block should offer that instead of making
+       anyone reach for the mouse. */
+    if (prose) {
+      for (const pre of prose.querySelectorAll("pre")) {
+        const wrap = doc.createElement("div");
+        wrap.className = "code-wrap";
+        pre.replaceWith(wrap);
+        wrap.append(pre);
+
+        const btn = doc.createElement("button");
+        btn.type = "button";
+        btn.className = "copy-btn";
+        btn.textContent = "Copy";
+        btn.setAttribute("aria-label", "Copy this block to the clipboard");
+
+        const flash = (label) => {
+          btn.textContent = label;
+          btn.classList.add("copied");
+          setTimeout(() => {
+            btn.textContent = "Copy";
+            btn.classList.remove("copied");
+          }, 1400);
+        };
+
+        btn.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(pre.innerText);
+            flash("Copied");
+          } catch {
+            flash("Select and copy");
+          }
+        });
+        wrap.append(btn);
+      }
+
+      /* Section anchors, so a reader can send a friend to one heading. */
+      for (const h of prose.querySelectorAll("h2[id], h3[id]")) {
+        const a = doc.createElement("a");
+        a.className = "h-anchor";
+        a.href = "#" + h.id;
+        a.textContent = "#";
+        a.setAttribute("aria-label", "Link to this section");
+        h.append(a);
+      }
+    }
+
+    /* Progress is about the article only, so index pages stay plain. */
+    const bar = doc.getElementById("reading-progress");
+    const article = doc.querySelector("article");
+    if (!bar) return;
+    if (!article) {
+      bar.hidden = true;
+      return;
+    }
+    const update = () => {
+      const box = article.getBoundingClientRect();
+      const total = box.height - window.innerHeight;
+      const done = Math.min(Math.max(-box.top, 0), Math.max(total, 1));
+      bar.style.setProperty("--p", (total > 0 ? done / total : 1).toFixed(4));
+    };
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  })();
+</script>

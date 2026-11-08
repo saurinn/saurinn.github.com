@@ -176,3 +176,131 @@
 .prose pre code::after {
   content: none;
 }
+
+
+/* ---------------------------------------------------------------------------
+   Enhancements added by components/Interactions.astro. Everything here is
+   opt-in through the .js class set before first paint, so a reader with
+   scripting off gets the original page rather than hidden content.
+   --------------------------------------------------------------------------- */
+
+/* Reading position, one hairline. Scaled rather than width-animated so the
+   browser never has to reflow on scroll. */
+#reading-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: currentColor;
+  color: var(--color-neutral-900);
+  opacity: 0.55;
+  transform: scaleX(var(--p, 0));
+  transform-origin: 0 50%;
+  pointer-events: none;
+  z-index: 40;
+}
+
+.dark #reading-progress {
+  color: var(--color-neutral-50);
+}
+
+#reading-progress[hidden] {
+  display: none;
+}
+
+/* Blocks arrive once, then stop being interesting. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+
+  .js [data-reveal].revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Fenced blocks keep their own vertical rhythm so wrapping them in a positioned
+   container does not change the prose spacing. */
+.code-wrap {
+  position: relative;
+  margin: 1.25rem 0;
+}
+
+.code-wrap > pre {
+  margin: 0;
+}
+
+/* System canvas colours follow the site's color-scheme declaration, so one rule
+   reads correctly on both the white request bodies and the dark terminal panels
+   instead of needing to know which block it landed in. */
+.copy-btn {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.45rem;
+  font: 500 0.75rem/1 var(--font-sans);
+  padding: 0.4rem 0.55rem;
+  border-radius: 6px;
+  border: 1px solid color-mix(in oklab, CanvasText 22%, transparent);
+  background: Canvas;
+  color: CanvasText;
+  cursor: pointer;
+  opacity: 1;
+}
+
+.copy-btn:hover {
+  border-color: color-mix(in oklab, CanvasText 45%, transparent);
+}
+
+.copy-btn.copied {
+  border-color: #15803d;
+  color: #15803d;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .copy-btn {
+    opacity: 0;
+  }
+
+  .code-wrap:hover .copy-btn,
+  .code-wrap:focus-within .copy-btn {
+    opacity: 1;
+  }
+}
+
+/* Anchors stay invisible until aimed at, which keeps the heading line clean. */
+.h-anchor {
+  margin-left: 0.4em;
+  color: var(--color-neutral-400);
+  font-weight: 500;
+  text-decoration: none;
+  opacity: 0;
+}
+
+.prose h2:hover .h-anchor,
+.prose h3:hover .h-anchor,
+.h-anchor:focus-visible {
+  opacity: 1;
+}
+
+.prose :is(h2, h3) {
+  scroll-margin-top: 4rem;
+}
+
+@media print {
+  .js [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  #reading-progress,
+  .copy-btn,
+  .h-anchor {
+    display: none !important;
+  }
+}

@@ -12,7 +12,8 @@ const { post } = Astro.props;
 
 <!-- Row spans the whole container: title and summary left, dates right-aligned. -->
 <article
-  class="group grid grid-cols-1 gap-x-10 gap-y-3 border-t border-neutral-200 py-8 md:grid-cols-[minmax(0,1fr)_11rem] dark:border-neutral-800"
+  data-reveal
+  class="group grid grid-cols-1 gap-x-10 gap-y-3 border-t border-neutral-200 py-8 transition-colors hover:bg-white/70 md:grid-cols-[minmax(0,1fr)_11rem] dark:border-neutral-800 dark:hover:bg-neutral-900/40"
 >
   <div>
     <h3
